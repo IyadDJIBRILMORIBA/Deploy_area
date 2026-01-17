@@ -16,9 +16,14 @@ RUN apk add --no-cache \
     mysql-client \
     postgresql-client \
     postgresql-dev \
-    libpq-dev \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl
+    libpq
+
+# Install PHP extensions with proper PostgreSQL support
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl
+
+# Verify pdo_pgsql is installed
+RUN php -m | grep pdo_pgsql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
