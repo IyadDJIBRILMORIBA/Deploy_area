@@ -1,0 +1,92 @@
+##
+
+📌 NOTES IMPORTANTES
+
+### Pour l'implémentation des services:
+
+1. **Toujours suivre ServiceInterface:**
+- `checkTrigger(string $actionName, array $params, $userToken)`
+- `executeReaction(string $reactionName, array $params, $userToken, array
+$triggerData)`
+
+2. **Enregistrer le service dans ExecuteAreas.php:**
+```php
+private function getServiceInstance(string $serviceName)
+{
+return match($serviceName) {
+'google', 'gmail' => new \App\Services\GoogleService(),
+'timer' => new \App\Services\TimerService(),
+'weather' => new \App\Services\WeatherService(), // AJOUTER ICI
+'github' => new \App\Services\GitHubService(), // AJOUTER ICI
+'discord' => new \App\Services\DiscordService(), // AJOUTER ICI
+'slack' => new \App\Services\SlackService(),
+default => null,
+};
+}
+
+// AJOUTER ICI
+
+3. **Ajouter dans le seeder:**
+
+```php
+// backend-area/database/seeders/ServicesSeeder.php
+php artisan db:seed --class=ServicesSeeder
+```
+
+4. **Tester le service:**
+```bash
+# Créer une AREA de test via l'API
+
+# Lancer le moteur
+php artisan area:execute
+
+# Vérifier les logs
+tail -f storage/logs/laravel.log
+
+### Répartition
+
+**Retys:**
+
+✅ DashboardController (routes mobile)
+2. ✅ ActivityController (routes mobile)
+3. ✅ GitHubService (complet)
+4. ✅ Spotify Service (complet)
+1.
+
+**Meryl:**
+1.
+
+✅ Améliorer /api/about.json
+
+## Mettre à jour /api/about.json
+**Fichier:** `backend-area/app/Http/Controllers/AboutController.php`
+
+**À faire:**
+- Mettre à jour la liste des services avec les nouveaux services
+- Ajouter toutes les actions/réactions de chaque service
+- S'assurer que le format correspond exactement au cahier des charges
+
+✅ DiscordService (complet)
+3. ✅ SlackService (complet)
+2.
+
+**Asaph:**
+
+✅ WeatherService (complet)
+2. ✅ TrelloService (complet)
+3. ✅ Tests des nouveaux services
+4. ✅ Améliorer migration area_logs
+1.
+
+## Améliorer la migration area_logs
+
+**Fichier:**
+`backend-area/database/migrations/2025_12_11_071516_add_trigger_data_to_area_logs_t
+able.php`
+
+**À faire:**
+- Vérifier que la colonne `trigger_data` est bien ajoutée
+- Ajouter un index sur `area_id` pour optimiser les requêtes
+- Ajouter un index sur `created_at` pour le tri des activités
+
+

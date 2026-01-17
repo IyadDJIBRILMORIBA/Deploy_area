@@ -1,0 +1,197 @@
+Cahier des Charges - Projet AREA (Mise à jour : 6 Personnes)
+
+Équipe : 6 Personnes
+Technos : Laravel (Back), Nuxt.js (Web), Flutter (Mobile), Docker
+Calcul des Quotas (
+
+        
+X=6X=6
+
+      
+
+) :
+
+    Services (NBS) :
+
+            
+    ≥1+6=≥1+6=
+
+          
+
+    7 Services minimum.
+
+    Actions + Réactions (NBA + NBR) :
+
+            
+    ≥3∗6=≥3∗6=
+
+          
+
+    18 Composants minimum.
+
+I. Objectif du Projet
+
+Développer une plateforme SaaS d'automatisation (type IFTTT) permettant aux utilisateurs de créer des workflows conditionnels (AREAs) connectant divers services tiers.
+II. Spécifications Fonctionnelles
+1. Utilisateurs & Rôles
+
+    Authentification : Email/Mot de passe + OAuth2 (Google/GitHub).
+
+    Rôle User : Création/Gestion des AREAs, gestion du profil.
+
+    Rôle Admin : Accès au dashboard d'administration (Vue globale des utilisateurs, statistiques, suppression de comptes).
+
+2. Services (Objectif : 7 Services)
+
+L'application doit intégrer au moins 7 "univers" distincts.
+
+    Timer / Scheduler (Service natif indispensable).
+
+    Google Workspace (Gmail, Calendar).
+
+    GitHub (Code & Projets).
+
+    Discord (Communication).
+
+    Spotify (Musique).
+
+    OpenWeatherMap (Météo - API ouverte simple).
+
+    Trello ou Notion (Gestion de tâches - Ajout pour le 6ème membre).
+
+3. AREA (Workflow)
+
+    Le système doit détecter les Actions (Triggers) via Polling (toutes les X minutes) ou Webhooks.
+
+    Le système doit exécuter les REActions associées.
+
+III. Matrice des Actions / Réactions (Objectif : 18+)
+
+Pour sécuriser la note, nous visons 20 composants (marge de sécurité de +2).
+#	Service	Type	Nom Technique	Description Fonctionnelle
+1	Timer	Action	EveryHour	Déclenchement toutes les heures.
+2		Action	DailyAt	Déclenchement tous les jours à une heure précise.
+3	Google	Action	GmailReceived	Réception d'un email (filtre par expéditeur/sujet).
+4		Action	CalendarEventStart	Un événement commence dans X minutes.
+5		REAction	SendEmail	Envoyer un email.
+6		REAction	CreateDraft	Créer un brouillon Gmail.
+7	GitHub	Action	NewIssue	Une issue est ouverte sur un repo surveillé.
+8		Action	NewPullRequest	Une PR est ouverte.
+9		REAction	CreateIssue	Créer automatiquement une issue.
+10	Discord	Action	NewMessage	(Si bot) Nouveau message dans un channel.
+11		REAction	PostMessage	Poster un message sur un channel.
+12		REAction	SendPrivateMsg	Envoyer un DM à l'utilisateur.
+13	Spotify	Action	TrackSaved	L'utilisateur ajoute un titre aux favoris.
+14		REAction	StartPlayback	Lancer une musique / playlist.
+15		REAction	AddToPlaylist	Ajouter le titre courant à une playlist.
+16	Weather	Action	WeatherChanged	La météo change (ex: il commence à pleuvoir).
+17		Action	TempThreshold	La température passe sous/dessus X°C.
+18	Trello	Action	CardCreated	Une nouvelle carte est créée dans une liste.
+19		REAction	CreateCard	Créer une carte Trello.
+20		REAction	ArchiveCard	Archiver une carte spécifique.
+IV. Architecture Technique & DevOps
+1. Stack Technique
+
+    Backend : Laravel 10/11 (API REST).
+
+    Frontend : Nuxt 3 + Tailwind CSS.
+
+    Mobile : Flutter (Android).
+
+    Base de données : MariaDB.
+
+2. Docker Compose (3 Services requis + BDD)
+
+Le fichier docker-compose.yml à la racine doit orchestrer :
+
+    db : Conteneur MariaDB.
+
+    server : Conteneur Laravel (Port 8080).
+
+    client_web : Conteneur Nuxt (Port 8081).
+
+    client_mobile : Conteneur utilitaire pour builder l'APK et le déposer dans un volume partagé avec le web.
+
+3. Contraintes Spécifiques
+
+    Route /about.json : Doit lister dynamiquement les 7 services et les 20 A/R.
+
+    Téléchargement APK : Le site web doit avoir un bouton "Télécharger l'app mobile" pointant vers /client.apk.
+
+V. Répartition des Rôles (Organisation pour 6)
+
+Avec 6 personnes, le risque est que certains se marchent dessus. Il faut spécialiser les tâches Backend.
+
+    Chef de Projet / Lead Tech :
+
+        Architecture globale, Review de code, Gestion du Git Flow.
+
+        Responsable de la documentation (README, HOWTOCONTRIBUTE).
+
+        Aide sur les points de blocage complexes (Docker, OAuth générique).
+
+    Développeur Mobile (Lead Flutter) :
+
+        Création de l'app mobile, UI/UX Mobile.
+
+        Connexion API, stockage sécurisé des tokens sur mobile.
+
+    Développeur Frontend (Lead Nuxt) :
+
+        Architecture Nuxt, UI/UX Web (Tailwind).
+
+        Gestion des formulaires complexes (création d'AREA).
+
+    Développeur Backend (Core & User) :
+
+        Authentification (JWT, Passport/Sanctum).
+
+        Gestion de la BDD, CRUD Users, CRUD AREAs.
+
+        Route /about.json.
+
+    Développeur Backend (Intégrations A) :
+
+        Responsable des services 1, 2, 3 (Timer, Google, GitHub).
+
+        Implémentation de l'OAuth pour ces services.
+
+    Développeur Backend (Intégrations B) :
+
+        Responsable des services 4, 5, 6, 7 (Discord, Spotify, Weather, Trello).
+
+        Implémentation du système de Polling (la boucle infinie qui vérifie les triggers).
+
+VI. Stratégie de Développement
+
+    Semaine 1 (Planning & Setup) :
+
+        Setup Docker complet.
+
+        Setup des projets Laravel, Nuxt, Flutter vides.
+
+        PoC : Login Google simple qui marche sur les 3 plateformes.
+
+    Semaine 2 (Core Features) :
+
+        Inscription/Login fonctionnel.
+
+        Base de données structurée.
+
+        Interface Web basique.
+
+        Dev Intégrations A et B commencent à lire les docs API des services.
+
+    Semaine 3 (MVP) :
+
+        On peut créer une AREA simple (ex: Timer -> Discord).
+
+        Le mobile peut voir les AREAs.
+
+    Semaines suivantes :
+
+        Ajout des services un par un ("Scaling").
+
+        Amélioration du design (UI).
+
+        Tests et écriture de la doc.
