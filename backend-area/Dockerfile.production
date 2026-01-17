@@ -1,5 +1,6 @@
 FROM php:8.2-fpm-alpine
 
+# Force rebuild - 2026-01-17-v3
 # Install system dependencies and PostgreSQL libraries
 RUN apk add --no-cache \
     git \
@@ -20,10 +21,9 @@ RUN apk add --no-cache \
 
 # Install PHP extensions with proper PostgreSQL support
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
-    docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl
-
-# Verify pdo_pgsql is installed
-RUN php -m | grep pdo_pgsql
+    docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl && \
+    php -m | grep -E '(pdo_pgsql|pgsql)' && \
+    echo "✓ PostgreSQL extensions installed successfully"
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
