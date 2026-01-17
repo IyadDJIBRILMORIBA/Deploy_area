@@ -1,0 +1,1544 @@
+openapi: 3.0.3
+info:
+  title: 'Laravel API Documentation'
+  description: 'API pour la plateforme AREA - Action REAction. Permet de gérer les authentifications, services, et automation (AREA).'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+tags:
+  -
+    name: AREAs
+    description: ''
+  -
+    name: About
+    description: ''
+  -
+    name: Authentication
+    description: ''
+  -
+    name: Services
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'Pour obtenir un token, vous devez vous enregistrer via <code>POST /api/register</code> puis vous connecter via <code>POST /api/login</code>. Le token JWT retourné doit être inclus dans le header Authorization avec le préfixe Bearer.'
+security:
+  -
+    default: []
+paths:
+  /api/areas:
+    get:
+      summary: 'List AREAs for the authenticated user'
+      operationId: listAREAsForTheAuthenticatedUser
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  areas: []
+                properties:
+                  areas:
+                    type: array
+                    example: []
+      tags:
+        - AREAs
+    post:
+      summary: 'Create a new AREA'
+      operationId: createANewAREA
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA created successfully'
+                  area: {  }
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA created successfully'
+                  area:
+                    type: object
+                    properties: {  }
+      tags:
+        - AREAs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the AREA.'
+                  example: '"Sync Calendar to Discord"'
+                trigger_service:
+                  type: string
+                  description: 'Trigger service id.'
+                  example: '"google"'
+                trigger_action:
+                  type: string
+                  description: 'Trigger action id.'
+                  example: '"new_event"'
+                action_service:
+                  type: string
+                  description: 'Action service id.'
+                  example: '"discord"'
+                action_reaction:
+                  type: string
+                  description: 'Action reaction id.'
+                  example: '"send_message"'
+                trigger_params:
+                  type: object
+                  description: 'Optional trigger parameters'
+                  example: []
+                  properties: {  }
+                  nullable: true
+                action_params:
+                  type: object
+                  description: 'Optional action parameters'
+                  example: []
+                  properties: {  }
+                  nullable: true
+              required:
+                - name
+                - trigger_service
+                - trigger_action
+                - action_service
+                - action_reaction
+  '/api/areas/{id}':
+    get:
+      summary: 'Get details of a specific AREA'
+      operationId: getDetailsOfASpecificAREA
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  area:
+                    id: 1
+                    name: 'Sync Calendar to Discord'
+                    trigger_service: google
+                    trigger_action: new_event
+                    trigger_params: {  }
+                    action_service: discord
+                    action_reaction: send_message
+                    action_params: {  }
+                    is_active: true
+                    created_at: '2025-12-06T10:00:00Z'
+                    updated_at: '2025-12-06T10:00:00Z'
+                properties:
+                  area:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Sync Calendar to Discord'
+                      trigger_service:
+                        type: string
+                        example: google
+                      trigger_action:
+                        type: string
+                        example: new_event
+                      trigger_params:
+                        type: object
+                        properties: {  }
+                      action_service:
+                        type: string
+                        example: discord
+                      action_reaction:
+                        type: string
+                        example: send_message
+                      action_params:
+                        type: object
+                        properties: {  }
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2025-12-06T10:00:00Z'
+                      updated_at:
+                        type: string
+                        example: '2025-12-06T10:00:00Z'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA not found'
+      tags:
+        - AREAs
+    put:
+      summary: 'Update an existing AREA'
+      operationId: updateAnExistingAREA
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA updated successfully'
+                  area:
+                    id: 1
+                    name: 'Updated AREA name'
+                    trigger_service: google
+                    trigger_action: new_email
+                    trigger_params: {  }
+                    action_service: slack
+                    action_reaction: send_message
+                    action_params: {  }
+                    is_active: true
+                    created_at: '2025-12-06T10:00:00Z'
+                    updated_at: '2025-12-06T12:00:00Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA updated successfully'
+                  area:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Updated AREA name'
+                      trigger_service:
+                        type: string
+                        example: google
+                      trigger_action:
+                        type: string
+                        example: new_email
+                      trigger_params:
+                        type: object
+                        properties: {  }
+                      action_service:
+                        type: string
+                        example: slack
+                      action_reaction:
+                        type: string
+                        example: send_message
+                      action_params:
+                        type: object
+                        properties: {  }
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2025-12-06T10:00:00Z'
+                      updated_at:
+                        type: string
+                        example: '2025-12-06T12:00:00Z'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA not found'
+      tags:
+        - AREAs
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'optional Name of the AREA.'
+                  example: '"Updated AREA name"'
+                trigger_service:
+                  type: string
+                  description: 'optional Trigger service id.'
+                  example: '"google"'
+                trigger_action:
+                  type: string
+                  description: 'optional Trigger action id.'
+                  example: '"new_email"'
+                action_service:
+                  type: string
+                  description: 'optional Action service id.'
+                  example: '"slack"'
+                action_reaction:
+                  type: string
+                  description: 'optional Action reaction id.'
+                  example: '"send_message"'
+                trigger_params:
+                  type: object
+                  description: 'optional Trigger parameters'
+                  example: []
+                  properties: {  }
+                  nullable: true
+                action_params:
+                  type: object
+                  description: 'optional Action parameters'
+                  example: []
+                  properties: {  }
+                  nullable: true
+                is_active:
+                  type: boolean
+                  description: 'optional Active status.'
+                  example: true
+    delete:
+      summary: 'Delete an AREA'
+      operationId: deleteAnAREA
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA deleted successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA deleted successfully'
+      tags:
+        - AREAs
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the AREA.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/areas/{id}/toggle':
+    post:
+      summary: 'Toggle AREA active state'
+      operationId: toggleAREAActiveState
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'AREA status updated'
+                  is_active: true
+                properties:
+                  message:
+                    type: string
+                    example: 'AREA status updated'
+                  is_active:
+                    type: boolean
+                    example: true
+      tags:
+        - AREAs
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the area.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/about.json:
+    get:
+      summary: 'Get information about the server and available services'
+      operationId: getInformationAboutTheServerAndAvailableServices
+      description: 'Returns metadata about the AREA server including available services, actions, and reactions.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  client:
+                    host: 192.168.1.100
+                  server:
+                    current_time: 1733400000
+                    services:
+                      -
+                        name: google
+                        actions:
+                          -
+                            name: new_email
+                            description: 'Triggered when a new email is received'
+                        reactions:
+                          -
+                            name: send_email
+                            description: 'Send an email via Gmail'
+                      -
+                        name: timer
+                        actions:
+                          -
+                            name: timer_trigger
+                            description: 'Triggered at specified intervals'
+                        reactions: []
+                properties:
+                  client:
+                    type: object
+                    properties:
+                      host:
+                        type: string
+                        example: 192.168.1.100
+                  server:
+                    type: object
+                    properties:
+                      current_time:
+                        type: integer
+                        example: 1733400000
+                      services:
+                        type: array
+                        example:
+                          -
+                            name: google
+                            actions:
+                              -
+                                name: new_email
+                                description: 'Triggered when a new email is received'
+                            reactions:
+                              -
+                                name: send_email
+                                description: 'Send an email via Gmail'
+                          -
+                            name: timer
+                            actions:
+                              -
+                                name: timer_trigger
+                                description: 'Triggered at specified intervals'
+                            reactions: []
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: google
+                            actions:
+                              type: array
+                              example:
+                                -
+                                  name: new_email
+                                  description: 'Triggered when a new email is received'
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                    example: new_email
+                                  description:
+                                    type: string
+                                    example: 'Triggered when a new email is received'
+                            reactions:
+                              type: array
+                              example:
+                                -
+                                  name: send_email
+                                  description: 'Send an email via Gmail'
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                    example: send_email
+                                  description:
+                                    type: string
+                                    example: 'Send an email via Gmail'
+      tags:
+        - About
+      security: []
+  /api/register:
+    post:
+      summary: 'Register a new user'
+      operationId: registerANewUser
+      description: 'Create a new user account and return an authentication token.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User registered successfully'
+                  access_token: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type: Bearer
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: john@example.com
+                    created_at: '2024-12-05T10:00:00.000000Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'User registered successfully'
+                  access_token:
+                    type: string
+                    example: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type:
+                    type: string
+                    example: Bearer
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: john@example.com
+                      created_at:
+                        type: string
+                        example: '2024-12-05T10:00:00.000000Z'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Validation failed'
+                  errors:
+                    email:
+                      - 'The email has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The user's full name."
+                  example: 'John Doe'
+                email:
+                  type: string
+                  description: "The user's email address."
+                  example: john@example.com
+                password:
+                  type: string
+                  description: "The user's password (minimum 6 characters)."
+                  example: secret123
+                password_confirmation:
+                  type: string
+                  description: 'Password confirmation.'
+                  example: secret123
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/login:
+    post:
+      summary: 'Login user'
+      operationId: loginUser
+      description: 'Authenticate a user and return an access token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Login successful'
+                  access_token: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type: Bearer
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: john@example.com
+                properties:
+                  message:
+                    type: string
+                    example: 'Login successful'
+                  access_token:
+                    type: string
+                    example: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type:
+                    type: string
+                    example: Bearer
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: john@example.com
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid credentials'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid credentials'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Validation failed'
+                  errors:
+                    email:
+                      - 'The email field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email field is required.'
+                        items:
+                          type: string
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "The user's email address."
+                  example: john@example.com
+                password:
+                  type: string
+                  description: "The user's password."
+                  example: secret123
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/google:
+    post:
+      summary: 'Google authentication for mobile'
+      operationId: googleAuthenticationForMobile
+      description: 'Authenticate a user using Google OAuth token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Login successful'
+                  access_token: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type: Bearer
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: john@example.com
+                    google_id: '1234567890'
+                properties:
+                  message:
+                    type: string
+                    example: 'Login successful'
+                  access_token:
+                    type: string
+                    example: 1|abcdefghijklmnopqrstuvwxyz123456
+                  token_type:
+                    type: string
+                    example: Bearer
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: john@example.com
+                      google_id:
+                        type: string
+                        example: '1234567890'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid Google token'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid Google token'
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Google ID token.'
+                  example: eyJhbGciOiJSUzI1NiIsImtpZCI6ImFiY...
+                access_token:
+                  type: string
+                  description: 'Optional Google access token.'
+                  example: ya29.a0AfH6SMBx...
+              required:
+                - token
+      security: []
+  /api/user:
+    get:
+      summary: 'Get authenticated user'
+      operationId: getAuthenticatedUser
+      description: "Retrieve the currently authenticated user's information."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: john@example.com
+                    google_id: null
+                    email_verified_at: '2024-12-05T10:00:00.000000Z'
+                    created_at: '2024-12-05T10:00:00.000000Z'
+                    updated_at: '2024-12-05T10:00:00.000000Z'
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: john@example.com
+                      google_id:
+                        type: string
+                        example: null
+                      email_verified_at:
+                        type: string
+                        example: '2024-12-05T10:00:00.000000Z'
+                      created_at:
+                        type: string
+                        example: '2024-12-05T10:00:00.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2024-12-05T10:00:00.000000Z'
+      tags:
+        - Authentication
+  /api/user/update:
+    put:
+      summary: 'Update user profile'
+      operationId: updateUserProfile
+      description: "Update the authenticated user's profile information."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Profile updated successfully'
+                  user:
+                    id: 1
+                    name: 'Jane Doe'
+                    email: jane@example.com
+                    created_at: '2024-12-05T10:00:00.000000Z'
+                    updated_at: '2024-12-05T11:00:00.000000Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'Profile updated successfully'
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Jane Doe'
+                      email:
+                        type: string
+                        example: jane@example.com
+                      created_at:
+                        type: string
+                        example: '2024-12-05T10:00:00.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2024-12-05T11:00:00.000000Z'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Validation failed'
+                  errors:
+                    email:
+                      - 'The email has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - Authentication
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The user's full name."
+                  example: 'Jane Doe'
+                email:
+                  type: string
+                  description: "The user's email address."
+                  example: jane@example.com
+  /api/user/delete:
+    delete:
+      summary: 'Delete user account'
+      operationId: deleteUserAccount
+      description: "Permanently delete the authenticated user's account and all associated data."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Account deleted successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Account deleted successfully'
+      tags:
+        - Authentication
+  /api/logout:
+    post:
+      summary: 'Logout user'
+      operationId: logoutUser
+      description: 'Revoke the current access token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+      tags:
+        - Authentication
+  /api/calendar-events:
+    get:
+      summary: 'Récupère les 5 prochains événements Google Calendar'
+      operationId: rcupreLes5ProchainsvnementsGoogleCalendar
+      description: 'Get upcoming Google Calendar events for the authenticated user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  events:
+                    -
+                      summary: 'Team Meeting'
+                      start: '2024-12-05T14:00:00Z'
+                      end: '2024-12-05T15:00:00Z'
+                properties:
+                  events:
+                    type: array
+                    example:
+                      -
+                        summary: 'Team Meeting'
+                        start: '2024-12-05T14:00:00Z'
+                        end: '2024-12-05T15:00:00Z'
+                    items:
+                      type: object
+                      properties:
+                        summary:
+                          type: string
+                          example: 'Team Meeting'
+                        start:
+                          type: string
+                          example: '2024-12-05T14:00:00Z'
+                        end:
+                          type: string
+                          example: '2024-12-05T15:00:00Z'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: 'Non connecté à Google'
+                properties:
+                  error:
+                    type: string
+                    example: 'Non connecté à Google'
+      tags:
+        - Services
+  /api/services:
+    get:
+      summary: 'Get all available services'
+      operationId: getAllAvailableServices
+      description: "Returns a list of all available services in the AREA platform,\nincluding their connection status for the authenticated user."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  services:
+                    -
+                      id: 1
+                      name: google
+                      description: 'Google Workspace services (Gmail, Calendar, Drive)'
+                      icon: 'https://www.google.com/favicon.ico'
+                      color: '#4285F4'
+                      category: productivity
+                      is_connected: true
+                      requires_auth: true
+                    -
+                      id: 2
+                      name: timer
+                      description: 'Schedule actions based on time intervals'
+                      icon: ⏰
+                      color: '#FF6B6B'
+                      category: utility
+                      is_connected: false
+                      requires_auth: false
+                properties:
+                  services:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: google
+                        description: 'Google Workspace services (Gmail, Calendar, Drive)'
+                        icon: 'https://www.google.com/favicon.ico'
+                        color: '#4285F4'
+                        category: productivity
+                        is_connected: true
+                        requires_auth: true
+                      -
+                        id: 2
+                        name: timer
+                        description: 'Schedule actions based on time intervals'
+                        icon: ⏰
+                        color: '#FF6B6B'
+                        category: utility
+                        is_connected: false
+                        requires_auth: false
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: google
+                        description:
+                          type: string
+                          example: 'Google Workspace services (Gmail, Calendar, Drive)'
+                        icon:
+                          type: string
+                          example: 'https://www.google.com/favicon.ico'
+                        color:
+                          type: string
+                          example: '#4285F4'
+                        category:
+                          type: string
+                          example: productivity
+                        is_connected:
+                          type: boolean
+                          example: true
+                        requires_auth:
+                          type: boolean
+                          example: true
+      tags:
+        - Services
+  '/api/services/{serviceId}':
+    get:
+      summary: 'Get service details with available triggers and actions'
+      operationId: getServiceDetailsWithAvailableTriggersAndActions
+      description: "Returns detailed information about a specific service including\nall available triggers (actions that can start an automation)\nand actions (reactions that can be executed)."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  service:
+                    id: 1
+                    name: google
+                    description: 'Google Workspace services'
+                    triggers:
+                      -
+                        id: new_email
+                        name: 'New Email Received'
+                        description: 'Triggered when a new email arrives in Gmail'
+                        config_schema:
+                          from:
+                            type: string
+                            required: false
+                            description: 'Filter by sender email'
+                          subject_contains:
+                            type: string
+                            required: false
+                            description: 'Filter by subject keywords'
+                      -
+                        id: new_calendar_event
+                        name: 'New Calendar Event'
+                        description: 'Triggered when a new event is created in Google Calendar'
+                        config_schema:
+                          calendar_id:
+                            type: string
+                            required: false
+                            default: primary
+                    actions:
+                      -
+                        id: send_email
+                        name: 'Send Email'
+                        description: 'Send an email via Gmail'
+                        config_schema:
+                          to:
+                            type: string
+                            required: true
+                            description: 'Recipient email address'
+                          subject:
+                            type: string
+                            required: true
+                            description: 'Email subject'
+                          body:
+                            type: string
+                            required: true
+                            description: 'Email body content'
+                      -
+                        id: create_calendar_event
+                        name: 'Create Calendar Event'
+                        description: 'Create a new event in Google Calendar'
+                        config_schema:
+                          title:
+                            type: string
+                            required: true
+                          start_time:
+                            type: datetime
+                            required: true
+                          end_time:
+                            type: datetime
+                            required: true
+                          description:
+                            type: string
+                            required: false
+                properties:
+                  service:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: google
+                      description:
+                        type: string
+                        example: 'Google Workspace services'
+                      triggers:
+                        type: array
+                        example:
+                          -
+                            id: new_email
+                            name: 'New Email Received'
+                            description: 'Triggered when a new email arrives in Gmail'
+                            config_schema:
+                              from:
+                                type: string
+                                required: false
+                                description: 'Filter by sender email'
+                              subject_contains:
+                                type: string
+                                required: false
+                                description: 'Filter by subject keywords'
+                          -
+                            id: new_calendar_event
+                            name: 'New Calendar Event'
+                            description: 'Triggered when a new event is created in Google Calendar'
+                            config_schema:
+                              calendar_id:
+                                type: string
+                                required: false
+                                default: primary
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: new_email
+                            name:
+                              type: string
+                              example: 'New Email Received'
+                            description:
+                              type: string
+                              example: 'Triggered when a new email arrives in Gmail'
+                            config_schema:
+                              type: object
+                              properties:
+                                from:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      example: string
+                                    required:
+                                      type: boolean
+                                      example: false
+                                    description:
+                                      type: string
+                                      example: 'Filter by sender email'
+                                subject_contains:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      example: string
+                                    required:
+                                      type: boolean
+                                      example: false
+                                    description:
+                                      type: string
+                                      example: 'Filter by subject keywords'
+                      actions:
+                        type: array
+                        example:
+                          -
+                            id: send_email
+                            name: 'Send Email'
+                            description: 'Send an email via Gmail'
+                            config_schema:
+                              to:
+                                type: string
+                                required: true
+                                description: 'Recipient email address'
+                              subject:
+                                type: string
+                                required: true
+                                description: 'Email subject'
+                              body:
+                                type: string
+                                required: true
+                                description: 'Email body content'
+                          -
+                            id: create_calendar_event
+                            name: 'Create Calendar Event'
+                            description: 'Create a new event in Google Calendar'
+                            config_schema:
+                              title:
+                                type: string
+                                required: true
+                              start_time:
+                                type: datetime
+                                required: true
+                              end_time:
+                                type: datetime
+                                required: true
+                              description:
+                                type: string
+                                required: false
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: send_email
+                            name:
+                              type: string
+                              example: 'Send Email'
+                            description:
+                              type: string
+                              example: 'Send an email via Gmail'
+                            config_schema:
+                              type: object
+                              properties:
+                                to:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      example: string
+                                    required:
+                                      type: boolean
+                                      example: true
+                                    description:
+                                      type: string
+                                      example: 'Recipient email address'
+                                subject:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      example: string
+                                    required:
+                                      type: boolean
+                                      example: true
+                                    description:
+                                      type: string
+                                      example: 'Email subject'
+                                body:
+                                  type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      example: string
+                                    required:
+                                      type: boolean
+                                      example: true
+                                    description:
+                                      type: string
+                                      example: 'Email body content'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service not found'
+      tags:
+        - Services
+    parameters:
+      -
+        in: path
+        name: serviceId
+        description: 'The ID of the service.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{serviceId}/connect':
+    post:
+      summary: 'Connect a service via OAuth'
+      operationId: connectAServiceViaOAuth
+      description: "Initiates or completes the OAuth connection process for a service.\nReturns the OAuth URL if not yet connected, or saves the connection\nif auth_code is provided."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'OAuth URL generated'
+                  oauth_url: 'https://accounts.google.com/o/oauth2/auth?...'
+                properties:
+                  message:
+                    type: string
+                    example: 'OAuth URL generated'
+                  oauth_url:
+                    type: string
+                    example: 'https://accounts.google.com/o/oauth2/auth?...'
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service connected successfully'
+                  connection:
+                    id: 1
+                    service_id: 1
+                    service_name: google
+                    connected_at: '2025-12-06T10:30:00Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service connected successfully'
+                  connection:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      service_id:
+                        type: integer
+                        example: 1
+                      service_name:
+                        type: string
+                        example: google
+                      connected_at:
+                        type: string
+                        example: '2025-12-06T10:30:00Z'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service not found'
+      tags:
+        - Services
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auth_code:
+                  type: string
+                  description: 'optional The OAuth authorization code (for completing connection).'
+                  example: architecto
+                access_token:
+                  type: string
+                  description: 'optional The OAuth access token (for mobile flow).'
+                  example: architecto
+                refresh_token:
+                  type: string
+                  description: 'optional The OAuth refresh token.'
+                  example: architecto
+    parameters:
+      -
+        in: path
+        name: serviceId
+        description: 'The ID of the service to connect.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/services/{serviceId}/disconnect':
+    delete:
+      summary: 'Disconnect a service'
+      operationId: disconnectAService
+      description: "Removes the OAuth connection between the user and the service.\nAll AREAs using this service will be deactivated."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service disconnected successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service disconnected successfully'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Service connection not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Service connection not found'
+      tags:
+        - Services
+    parameters:
+      -
+        in: path
+        name: serviceId
+        description: 'The ID of the service to disconnect.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/user/services:
+    get:
+      summary: "Get user's connected services"
+      operationId: getUsersConnectedServices
+      description: 'Returns a list of all services that the user has connected to their account.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  services:
+                    -
+                      service_id: 1
+                      service_name: google
+                      connected_at: '2025-12-01T08:00:00Z'
+                      status: active
+                    -
+                      service_id: 3
+                      service_name: github
+                      connected_at: '2025-11-28T14:30:00Z'
+                      status: expired
+                properties:
+                  services:
+                    type: array
+                    example:
+                      -
+                        service_id: 1
+                        service_name: google
+                        connected_at: '2025-12-01T08:00:00Z'
+                        status: active
+                      -
+                        service_id: 3
+                        service_name: github
+                        connected_at: '2025-11-28T14:30:00Z'
+                        status: expired
+                    items:
+                      type: object
+                      properties:
+                        service_id:
+                          type: integer
+                          example: 1
+                        service_name:
+                          type: string
+                          example: google
+                        connected_at:
+                          type: string
+                          example: '2025-12-01T08:00:00Z'
+                        status:
+                          type: string
+                          example: active
+      tags:
+        - Services

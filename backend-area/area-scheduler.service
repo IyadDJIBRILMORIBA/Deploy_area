@@ -1,0 +1,16 @@
+[Unit]
+Description=AREA Scheduler Service
+After=network.target
+
+[Service]
+Type=simple
+User=dblmoriba
+WorkingDirectory=/home/dblmoriba/tek3_project/G-DEV-500-COT-5-2-area-8/backend-area
+ExecStart=/usr/bin/php /home/dblmoriba/tek3_project/G-DEV-500-COT-5-2-area-8/backend-area/artisan schedule:work
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/dblmoriba/tek3_project/G-DEV-500-COT-5-2-area-8/backend-area/storage/logs/scheduler.log
+StandardError=append:/home/dblmoriba/tek3_project/G-DEV-500-COT-5-2-area-8/backend-area/storage/logs/scheduler.log
+
+[Install]
+WantedBy=multi-user.target

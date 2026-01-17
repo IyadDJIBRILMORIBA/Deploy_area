@@ -1,0 +1,853 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Laravel API Documentation",
+        "_postman_id": "11f0a5f8-bc2d-4f1b-b616-d94757680101",
+        "description": "API pour la plateforme AREA - Action REAction. Permet de g\u00e9rer les authentifications, services, et automation (AREA).",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "AREAs",
+            "description": "",
+            "item": [
+                {
+                    "name": "List AREAs for the authenticated user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"areas\": []\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a new AREA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"\\\"Sync Calendar to Discord\\\"\",\"trigger_service\":\"\\\"google\\\"\",\"trigger_action\":\"\\\"new_event\\\"\",\"action_service\":\"\\\"discord\\\"\",\"action_reaction\":\"\\\"send_message\\\"\",\"trigger_params\":[],\"action_params\":[]}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"message\": \"AREA created successfully\",\n \"area\": { }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get details of a specific AREA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the AREA."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"area\": {\n   \"id\": 1,\n   \"name\": \"Sync Calendar to Discord\",\n   \"trigger_service\": \"google\",\n   \"trigger_action\": \"new_event\",\n   \"trigger_params\": {},\n   \"action_service\": \"discord\",\n   \"action_reaction\": \"send_message\",\n   \"action_params\": {},\n   \"is_active\": true,\n   \"created_at\": \"2025-12-06T10:00:00Z\",\n   \"updated_at\": \"2025-12-06T10:00:00Z\"\n }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"message\": \"AREA not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update an existing AREA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the AREA."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"\\\"Updated AREA name\\\"\",\"trigger_service\":\"\\\"google\\\"\",\"trigger_action\":\"\\\"new_email\\\"\",\"action_service\":\"\\\"slack\\\"\",\"action_reaction\":\"\\\"send_message\\\"\",\"trigger_params\":[],\"action_params\":[],\"is_active\":true}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"AREA updated successfully\",\n \"area\": {\n   \"id\": 1,\n   \"name\": \"Updated AREA name\",\n   \"trigger_service\": \"google\",\n   \"trigger_action\": \"new_email\",\n   \"trigger_params\": {},\n   \"action_service\": \"slack\",\n   \"action_reaction\": \"send_message\",\n   \"action_params\": {},\n   \"is_active\": true,\n   \"created_at\": \"2025-12-06T10:00:00Z\",\n   \"updated_at\": \"2025-12-06T12:00:00Z\"\n }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"message\": \"AREA not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete an AREA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the area."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"AREA deleted successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Toggle AREA active state",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/areas\/:id\/toggle",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/areas\/:id\/toggle",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the area."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"AREA status updated\",\n \"is_active\": true\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "About",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get information about the server and available services",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/about.json",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/about.json"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns metadata about the AREA server including available services, actions, and reactions.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"client\": {\n    \"host\": \"192.168.1.100\"\n  },\n  \"server\": {\n    \"current_time\": 1733400000,\n    \"services\": [\n      {\n        \"name\": \"google\",\n        \"actions\": [\n          {\n            \"name\": \"new_email\",\n            \"description\": \"Triggered when a new email is received\"\n          }\n        ],\n        \"reactions\": [\n          {\n            \"name\": \"send_email\",\n            \"description\": \"Send an email via Gmail\"\n          }\n        ]\n      },\n      {\n        \"name\": \"timer\",\n        \"actions\": [\n          {\n            \"name\": \"timer_trigger\",\n            \"description\": \"Triggered at specified intervals\"\n          }\n        ],\n        \"reactions\": []\n      }\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Register a new user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"password\":\"secret123\",\"password_confirmation\":\"secret123\"}"
+                        },
+                        "description": "Create a new user account and return an authentication token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"message\": \"User registered successfully\",\n  \"access_token\": \"1|abcdefghijklmnopqrstuvwxyz123456\",\n  \"token_type\": \"Bearer\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"created_at\": \"2024-12-05T10:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Validation failed\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Login user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"secret123\"}"
+                        },
+                        "description": "Authenticate a user and return an access token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Login successful\",\n  \"access_token\": \"1|abcdefghijklmnopqrstuvwxyz123456\",\n  \"token_type\": \"Bearer\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Invalid credentials\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Validation failed\",\n  \"errors\": {\n    \"email\": [\"The email field is required.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Google authentication for mobile",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/google",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/google"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6ImFiY...\",\"access_token\":\"ya29.a0AfH6SMBx...\"}"
+                        },
+                        "description": "Authenticate a user using Google OAuth token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Login successful\",\n  \"access_token\": \"1|abcdefghijklmnopqrstuvwxyz123456\",\n  \"token_type\": \"Bearer\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"google_id\": \"1234567890\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Invalid Google token\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get authenticated user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Retrieve the currently authenticated user's information."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"google_id\": null,\n    \"email_verified_at\": \"2024-12-05T10:00:00.000000Z\",\n    \"created_at\": \"2024-12-05T10:00:00.000000Z\",\n    \"updated_at\": \"2024-12-05T10:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update user profile",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/update",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/update"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Jane Doe\",\"email\":\"jane@example.com\"}"
+                        },
+                        "description": "Update the authenticated user's profile information."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Profile updated successfully\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane@example.com\",\n    \"created_at\": \"2024-12-05T10:00:00.000000Z\",\n    \"updated_at\": \"2024-12-05T11:00:00.000000Z\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Validation failed\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete user account",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/delete",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/delete"
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Permanently delete the authenticated user's account and all associated data."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Account deleted successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout user",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Revoke the current access token."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Logged out successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Services",
+            "description": "",
+            "item": [
+                {
+                    "name": "R\u00e9cup\u00e8re les 5 prochains \u00e9v\u00e9nements Google Calendar",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/calendar-events",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/calendar-events"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get upcoming Google Calendar events for the authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"events\": [\n    {\n      \"summary\": \"Team Meeting\",\n      \"start\": \"2024-12-05T14:00:00Z\",\n      \"end\": \"2024-12-05T15:00:00Z\"\n    }\n  ]\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"error\": \"Non connect\u00e9 \u00e0 Google\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get all available services",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns a list of all available services in the AREA platform,\nincluding their connection status for the authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"services\": [\n    {\n      \"id\": 1,\n      \"name\": \"google\",\n      \"description\": \"Google Workspace services (Gmail, Calendar, Drive)\",\n      \"icon\": \"https:\/\/www.google.com\/favicon.ico\",\n      \"color\": \"#4285F4\",\n      \"category\": \"productivity\",\n      \"is_connected\": true,\n      \"requires_auth\": true\n    },\n    {\n      \"id\": 2,\n      \"name\": \"timer\",\n      \"description\": \"Schedule actions based on time intervals\",\n      \"icon\": \"\u23f0\",\n      \"color\": \"#FF6B6B\",\n      \"category\": \"utility\",\n      \"is_connected\": false,\n      \"requires_auth\": false\n    }\n  ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get service details with available triggers and actions",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:serviceId",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:serviceId",
+                            "variable": [
+                                {
+                                    "id": "serviceId",
+                                    "key": "serviceId",
+                                    "value": "1",
+                                    "description": "The ID of the service."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns detailed information about a specific service including\nall available triggers (actions that can start an automation)\nand actions (reactions that can be executed)."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"service\": {\n    \"id\": 1,\n    \"name\": \"google\",\n    \"description\": \"Google Workspace services\",\n    \"triggers\": [\n      {\n        \"id\": \"new_email\",\n        \"name\": \"New Email Received\",\n        \"description\": \"Triggered when a new email arrives in Gmail\",\n        \"config_schema\": {\n          \"from\": { \"type\": \"string\", \"required\": false, \"description\": \"Filter by sender email\" },\n          \"subject_contains\": { \"type\": \"string\", \"required\": false, \"description\": \"Filter by subject keywords\" }\n        }\n      },\n      {\n        \"id\": \"new_calendar_event\",\n        \"name\": \"New Calendar Event\",\n        \"description\": \"Triggered when a new event is created in Google Calendar\",\n        \"config_schema\": {\n          \"calendar_id\": { \"type\": \"string\", \"required\": false, \"default\": \"primary\" }\n        }\n      }\n    ],\n    \"actions\": [\n      {\n        \"id\": \"send_email\",\n        \"name\": \"Send Email\",\n        \"description\": \"Send an email via Gmail\",\n        \"config_schema\": {\n          \"to\": { \"type\": \"string\", \"required\": true, \"description\": \"Recipient email address\" },\n          \"subject\": { \"type\": \"string\", \"required\": true, \"description\": \"Email subject\" },\n          \"body\": { \"type\": \"string\", \"required\": true, \"description\": \"Email body content\" }\n        }\n      },\n      {\n        \"id\": \"create_calendar_event\",\n        \"name\": \"Create Calendar Event\",\n        \"description\": \"Create a new event in Google Calendar\",\n        \"config_schema\": {\n          \"title\": { \"type\": \"string\", \"required\": true },\n          \"start_time\": { \"type\": \"datetime\", \"required\": true },\n          \"end_time\": { \"type\": \"datetime\", \"required\": true },\n          \"description\": { \"type\": \"string\", \"required\": false }\n        }\n      }\n    ]\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Service not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Connect a service via OAuth",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:serviceId\/connect",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:serviceId\/connect",
+                            "variable": [
+                                {
+                                    "id": "serviceId",
+                                    "key": "serviceId",
+                                    "value": "1",
+                                    "description": "The ID of the service to connect."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"auth_code\":\"architecto\",\"access_token\":\"architecto\",\"refresh_token\":\"architecto\"}"
+                        },
+                        "description": "Initiates or completes the OAuth connection process for a service.\nReturns the OAuth URL if not yet connected, or saves the connection\nif auth_code is provided."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"OAuth URL generated\",\n  \"oauth_url\": \"https:\/\/accounts.google.com\/o\/oauth2\/auth?...\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"message\": \"Service connected successfully\",\n  \"connection\": {\n    \"id\": 1,\n    \"service_id\": 1,\n    \"service_name\": \"google\",\n    \"connected_at\": \"2025-12-06T10:30:00Z\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Service not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Disconnect a service",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/services\/:serviceId\/disconnect",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/services\/:serviceId\/disconnect",
+                            "variable": [
+                                {
+                                    "id": "serviceId",
+                                    "key": "serviceId",
+                                    "value": "1",
+                                    "description": "The ID of the service to disconnect."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Removes the OAuth connection between the user and the service.\nAll AREAs using this service will be deactivated."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Service disconnected successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Service connection not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get user's connected services",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/services",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/services"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns a list of all services that the user has connected to their account."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"services\": [\n    {\n      \"service_id\": 1,\n      \"service_name\": \"google\",\n      \"connected_at\": \"2025-12-01T08:00:00Z\",\n      \"status\": \"active\"\n    },\n    {\n      \"service_id\": 3,\n      \"service_name\": \"github\",\n      \"connected_at\": \"2025-11-28T14:30:00Z\",\n      \"status\": \"expired\"\n    }\n  ]\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}
