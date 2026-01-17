@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-# Install system dependencies
+# Install system dependencies and PostgreSQL libraries
 RUN apk add --no-cache \
     git \
     curl \
@@ -15,10 +15,10 @@ RUN apk add --no-cache \
     bash \
     mysql-client \
     postgresql-client \
-    postgresql-dev
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd curl
+    postgresql-dev \
+    libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
