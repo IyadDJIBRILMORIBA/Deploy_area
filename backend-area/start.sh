@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Script de démarrage pour Render.com
 # Utilise le port fourni par la variable d'environnement PORT

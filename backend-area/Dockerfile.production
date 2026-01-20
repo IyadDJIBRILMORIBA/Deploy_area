@@ -42,6 +42,6 @@ COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 # Lancement du serveur via le script
-CMD ["/usr/local/bin/start.sh"]
+CMD ["sh", "/usr/local/bin/start.sh"]
 
 EXPOSE 8000
