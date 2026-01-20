@@ -14,31 +14,21 @@ services:
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        sync: false
+        value: https://deploy-area.onrender.com
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromDatabase:
-          name: area-postgres
-          property: host
+        value: dpg-d5lfuvbe5dus73dopt6g-a.virginia-postgres.render.com
       - key: DB_PORT
-        fromDatabase:
-          name: area-postgres
-          property: port
+        value: 5432
       - key: DB_DATABASE
-        fromDatabase:
-          name: area-postgres
-          property: database
+        value: area_base
       - key: DB_USERNAME
-        fromDatabase:
-          name: area-postgres
-          property: user
+        value: area_base_user
       - key: DB_PASSWORD
-        fromDatabase:
-          name: area-postgres
-          property: password
+        value: 7NDrO9QcDemZw5hNEHfkIPkETTJMFtdQ
       - key: SESSION_DRIVER
         value: database
       - key: CACHE_STORE
@@ -81,9 +71,5 @@ services:
       - key: DISCORD_REDIRECT_URI
         sync: false
 
-databases:
-  - name: area-postgres
-    databaseName: area_database
-    user: area_user
-    plan: free
-    postgresMajorVersion: 16
+# Database already exists: area_base (dpg-d5lfuvbe5dus73dopt6g-a)
+# Connection configured in envVars above
