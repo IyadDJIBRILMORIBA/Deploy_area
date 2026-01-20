@@ -5,13 +5,24 @@
 
 echo "🚀 Starting AREA Backend..."
 
+# S'assurer qu'il n'y a pas de fichier .env
+rm -f /var/www/.env
+
+# Vérifier que les variables d'environnement sont présentes
+echo "🔍 Checking environment variables..."
+echo "📊 DB_CONNECTION: $DB_CONNECTION"
+echo "📊 DB_HOST: $DB_HOST"
+echo "📊 DB_DATABASE: $DB_DATABASE"
+echo "📊 DB_USERNAME: $DB_USERNAME"
+echo "📊 APP_ENV: $APP_ENV"
+
 # Régénérer la clé si APP_KEY est vide
 if [ -z "$APP_KEY" ]; then
   echo "🔑 Generating APP_KEY..."
-  php artisan key:generate --force
+  php artisan key:generate --force --show
 fi
 
-# Vider les caches (IMPORTANT pour utiliser les vraies variables d'env)
+# Vider TOUS les caches
 echo "📦 Clearing all caches..."
 php artisan config:clear
 php artisan cache:clear
@@ -22,15 +33,12 @@ php artisan view:clear
 echo "🗄️  Running migrations..."
 php artisan migrate --force
 
-# NE PAS mettre en cache la config sur Render
-# Car les variables d'environnement doivent être lues dynamiquement
-echo "⚡ Optimizing routes and views only..."
+# Optimiser uniquement routes et views (PAS config)
+echo "⚡ Optimizing..."
 php artisan route:cache
 php artisan view:cache
 
-# Démarrer le serveur sur le port fourni par Render
+# Démarrer le serveur
 PORT=${PORT:-8000}
 echo "🌐 Starting server on port $PORT..."
-echo "📊 Using DB_HOST: $DB_HOST"
-echo "📊 Using DB_DATABASE: $DB_DATABASE"
 php artisan serve --host=0.0.0.0 --port=$PORT

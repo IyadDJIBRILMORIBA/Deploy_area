@@ -31,14 +31,9 @@ RUN composer install --no-dev --no-interaction --optimize-autoloader --prefer-di
 # Permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# NE PAS copier .env.example - on utilisera les variables d'environnement de Render
-# RUN if [ ! -f .env ]; then cp .env.example .env; fi
-
-# Créer un .env vide pour éviter les erreurs Laravel
-RUN touch .env
-
-# Générer la clé d'application Laravel (sera régénérée au démarrage avec les vraies vars)
-RUN php artisan key:generate
+# NE PAS créer de fichier .env - Laravel lira directement les variables d'environnement
+# Supprimer .env.example pour éviter toute confusion
+RUN rm -f .env .env.example
 
 # Copier le script de démarrage
 COPY start.sh /usr/local/bin/start.sh
