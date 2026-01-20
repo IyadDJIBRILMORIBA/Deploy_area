@@ -31,14 +31,6 @@ else
     echo "⚠️  Warning: Migrations failed - check database configuration"
 fi
 
-# Run seeders
-echo "🌱 Seeding database..."
-if php artisan db:seed --force --no-interaction; then
-    echo "✅ Database seeding completed successfully"
-else
-    echo "⚠️  Warning: Seeding failed - check seeder configuration"
-fi
-
 # Cache configuration
 echo "⚡ Optimizing application..."
 php artisan config:cache || echo "⚠️  Config cache failed"
