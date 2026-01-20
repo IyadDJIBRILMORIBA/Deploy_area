@@ -18,17 +18,27 @@ services:
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION
-        value: mysql
+        value: pgsql
       - key: DB_HOST
-        sync: false
+        fromDatabase:
+          name: area-postgres
+          property: host
       - key: DB_PORT
-        value: 3306
+        fromDatabase:
+          name: area-postgres
+          property: port
       - key: DB_DATABASE
-        sync: false
+        fromDatabase:
+          name: area-postgres
+          property: database
       - key: DB_USERNAME
-        sync: false
+        fromDatabase:
+          name: area-postgres
+          property: user
       - key: DB_PASSWORD
-        sync: false
+        fromDatabase:
+          name: area-postgres
+          property: password
       - key: SESSION_DRIVER
         value: database
       - key: CACHE_STORE
@@ -72,7 +82,8 @@ services:
         sync: false
 
 databases:
-  - name: area-db
+  - name: area-postgres
     databaseName: area_database
     user: area_user
     plan: free
+    postgresMajorVersion: 16

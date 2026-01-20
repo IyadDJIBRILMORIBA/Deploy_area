@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
+
+// Animation au scroll
+const { y } = useWindowScroll()
+const heroScale = computed(() => Math.max(1 - y.value / 1000, 0.95))
+
 </script>
 
 <template>
@@ -44,17 +49,15 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
         
         <!-- Badge -->
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full border border-indigo-200 mb-6 animate-slide-down">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-          </span>
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+          <span class="w-2 h-2 rounded-full bg-green-500 absolute animate-pulse"></span>
           Automatisation d'applications web
         </div>
 
         <!-- Title -->
         <h1 class="text-5xl sm:text-7xl font-bold text-gray-900 mb-6 leading-tight animate-fade-in-up">
           Automatisez vos 
-          <span class="bg-gradient-to-r from-indigo-600 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+          <span class="bg-gradient-to-r from-indigo-600 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient">
             tâches quotidiennes
           </span>
         </h1>
@@ -104,64 +107,56 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
           </div>
 
           <!-- Service Cards with animations -->
-          <div class="absolute top-10 left-10 w-32 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float cursor-pointer" style="animation-delay: 0s">
+          <div class="absolute top-10 left-10 w-32 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float" style="animation-delay: 0s">
             📅 Calendar
           </div>
-          <div class="absolute bottom-10 left-40 w-24 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300 animate-float cursor-pointer" style="animation-delay: 0.5s">
+          <div class="absolute bottom-10 left-40 w-24 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-2xl hover:scale-110 transition-transform duration-300 animate-float" style="animation-delay: 0.5s">
             💬
           </div>
-          <div class="absolute top-1/2 right-20 w-32 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float cursor-pointer" style="animation-delay: 1s">
+          <div class="absolute top-1/2 right-20 w-32 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float" style="animation-delay: 1s">
             🎯 Focus
           </div>
-          <div class="absolute bottom-20 right-10 w-28 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float cursor-pointer" style="animation-delay: 1.5s">
+          <div class="absolute bottom-20 right-10 w-28 h-24 bg-white rounded-xl shadow-xl flex items-center justify-center text-sm font-bold border border-gray-100 hover:scale-110 transition-transform duration-300 animate-float" style="animation-delay: 1.5s">
             ⚡ Action
           </div>
         </div>
       </div>
     </section>
-
    <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-indigo-50 relative overflow-hidden">
-      <!-- Background decoration -->
-      <div class="absolute top-10 right-10 w-72 h-72 bg-purple-300/10 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-10 left-10 w-72 h-72 bg-blue-300/10 rounded-full blur-3xl"></div>
-
-      <div class="max-w-6xl mx-auto relative z-10">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-4">
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-indigo-50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
           Tout ce dont tu as besoin
         </h2>
-        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Une plateforme complète pour automatiser vos workflows sans aucune limitation
-        </p>
 
         <div class="grid gap-8 md:grid-cols-3">
-          <div class="group bg-white rounded-2xl shadow-md p-8 border border-indigo-50 hover:border-indigo-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.1s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-indigo-500/30">
-              <BoltIcon class="w-8 h-8" />
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-indigo-50">
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
+              <BoltIcon class="w-6 h-6" />
             </div>
-            <h3 class="font-bold text-xl mb-3 text-gray-900">Automatisations rapides</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Crée des scénarios en quelques clics pour connecter tes applications web. Interface intuitive et puissante.
+            <h3 class="font-semibold text-lg mb-2 text-gray-900">Automatisations rapides</h3>
+            <p class="text-gray-600 text-sm">
+              Crée des scénarios en quelques clics pour connecter tes applications web.
             </p>
           </div>
 
-          <div class="group bg-white rounded-2xl shadow-md p-8 border border-indigo-50 hover:border-blue-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.2s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/30">
-              <ArrowPathIcon class="w-8 h-8" />
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-indigo-50">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+              <ArrowPathIcon class="w-6 h-6" />
             </div>
-            <h3 class="font-bold text-xl mb-3 text-gray-900">Workflows fiables</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Tes automatisations tournent en continu avec des logs clairs et détaillés. Monitoring en temps réel.
+            <h3 class="font-semibold text-lg mb-2 text-gray-900">Workflows fiables</h3>
+            <p class="text-gray-600 text-sm">
+              Tes automatisations tournent en continu avec des logs clairs et détaillés.
             </p>
           </div>
 
-          <div class="group bg-white rounded-2xl shadow-md p-8 border border-indigo-50 hover:border-violet-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style="animation-delay: 0.3s">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500 to-violet-600 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-violet-500/30">
-              <ShieldCheckIcon class="w-8 h-8" />
+          <div class="bg-white rounded-2xl shadow-md p-6 border border-indigo-50">
+            <div class="w-10 h-10 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center mb-4">
+              <ShieldCheckIcon class="w-6 h-6" />
             </div>
-            <h3 class="font-bold text-xl mb-3 text-gray-900">Sécurité intégrée</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Données protégées, permissions maîtrisées, idéal pour des intégrations d'école ou pro.
+            <h3 class="font-semibold text-lg mb-2 text-gray-900">Sécurité intégrée</h3>
+            <p class="text-gray-600 text-sm">
+              Données protégées, permissions maîtrisées, idéal pour des intégrations d’école ou pro.
             </p>
           </div>
         </div>
@@ -169,15 +164,15 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-indigo-100 bg-white/80 backdrop-blur py-8 mt-10">
+    <footer class="border-t border-indigo-100 bg-white/80 backdrop-blur py-6 mt-10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-sm text-gray-500">
           © {{ new Date().getFullYear() }} AREA. Tous droits réservés.
         </p>
-        <div class="flex gap-6 text-sm text-gray-500">
-          <a href="#features" class="hover:text-indigo-600 transition-colors">Fonctionnalités</a>
-          <NuxtLink to="/login" class="hover:text-indigo-600 transition-colors">Connexion</NuxtLink>
-          <NuxtLink to="/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</NuxtLink>
+        <div class="flex gap-4 text-sm text-gray-500">
+          <a href="#features" class="hover:text-indigo-600">Fonctionnalités</a>
+          <NuxtLink to="/login" class="hover:text-indigo-600">Connexion</NuxtLink>
+          <NuxtLink to="/dashboard" class="hover:text-indigo-600">Dashboard</NuxtLink>
         </div>
       </div>
     </footer>
@@ -186,6 +181,11 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
 
 <style scoped>
 /* Animations personnalisées */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes fade-in-up {
   from { 
     opacity: 0; 
@@ -228,6 +228,19 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
   }
 }
 
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out;
+}
+
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
   opacity: 0;
@@ -243,5 +256,10 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
 
 .animate-pulse-slow {
   animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
 }
 </style>

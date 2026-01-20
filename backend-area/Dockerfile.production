@@ -1,0 +1,48 @@
+FROM php:8.4-fpm
+
+# Installation des dépendances système pour PostgreSQL et MySQL
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    libcurl4-openssl-dev \
+    libpq-dev \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installation des extensions PHP (PostgreSQL + MySQL)
+RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd curl
+
+# Installation de Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www
+
+# Copie du projet
+COPY . .
+
+# Installation des dépendances Laravel en mode production
+RUN composer install --no-dev --no-interaction --optimize-autoloader --prefer-dist
+
+# Permissions
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+# Copier le fichier .env.example si .env n'existe pas
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
+# Générer la clé d'application Laravel
+RUN php artisan key:generate
+
+# Optimisations Laravel
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
+
+# Lancement du serveur sur le port 8000
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+
+EXPOSE 8000
