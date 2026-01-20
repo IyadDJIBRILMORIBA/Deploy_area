@@ -37,12 +37,15 @@ RUN if [ ! -f .env ]; then cp .env.example .env; fi
 # Générer la clé d'application Laravel
 RUN php artisan key:generate
 
-# Optimisations Laravel
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
+# NE PAS cacher la config au build - on le fera au runtime avec les vraies variables
+# Les optimisations seront faites au démarrage du container
 
-# Lancement du serveur sur le port 8000
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Lancement du serveur sur le port dynamique fourni par Render
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan migrate --force && \
+    php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
 
 EXPOSE 8000
