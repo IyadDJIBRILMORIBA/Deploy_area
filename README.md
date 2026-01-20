@@ -1,5 +1,8 @@
 # AREA - Automation Platform
 
+![Laravel Tests](https://github.com/VOTRE-USERNAME/G-DEV-500-COT-5-2-area-8/workflows/Laravel%20CI%2FCD/badge.svg)
+![Frontend CI](https://github.com/VOTRE-USERNAME/G-DEV-500-COT-5-2-area-8/workflows/Frontend%20CI/badge.svg)
+
 **AREA** est une suite logicielle de type SaaS (Software as a Service) permettant d'automatiser des tâches en interconnectant divers services tiers. Inspiré par IFTTT et Zapier, AREA permet aux utilisateurs de créer des workflows conditionnels appelés 
 **AREAs** (Action-REAction). ---
 
@@ -183,3 +186,60 @@ Docker : https://docs.docker.com/
 
 MariaDB : https://mariadb.com/kb/en/documentation/
 
+---
+
+## 🧪 Tests et CI/CD
+
+### Tests Unitaires et Fonctionnels
+
+Le projet dispose d'une suite complète de tests PHPUnit :
+
+#### Tests Unitaires (`tests/Unit/`)
+- ✅ WeatherServiceTest - Tests du service météo
+- ✅ SlackServiceTest - Tests du service Slack  
+- ✅ GitHubServiceTest - Tests du service GitHub
+
+#### Tests Fonctionnels (`tests/Feature/`)
+- ✅ AreaExecutionTest - Tests des workflows complets
+- ✅ AuthenticationTest - Tests d'authentification
+
+### Exécuter les Tests
+
+```bash
+cd backend-area
+
+# Tous les tests
+./run-tests.sh all
+
+# Tests unitaires uniquement
+./run-tests.sh unit
+
+# Tests fonctionnels uniquement
+./run-tests.sh feature
+
+# Avec rapport de couverture
+./run-tests.sh coverage
+```
+
+### CI/CD avec GitHub Actions
+
+Deux workflows automatisés s'exécutent à chaque push :
+
+#### 1. Laravel CI/CD (`.github/workflows/laravel.yml`)
+- ✅ Tests sur PHP 8.2 & 8.3
+- ✅ Base de données MariaDB
+- ✅ Couverture de code (Codecov)
+- ✅ Analyse statique (PHPStan)
+- ✅ Vérification du style (Laravel Pint)
+- ✅ Audit de sécurité
+
+#### 2. Frontend CI (`.github/workflows/frontend.yml`)
+- ✅ Build et tests Nuxt
+- ✅ Build et tests Flutter
+- ✅ Vérification du linting
+
+### Documentation Complète
+- 📖 [Guide des Tests](backend-area/tests/README.md)
+- 📖 [Configuration CI/CD](docs/CI_CD_SETUP.md)
+
+---

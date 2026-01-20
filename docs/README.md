@@ -149,7 +149,76 @@ Membre 5 - GitHub
 
 Membre 6 - GitHub
 
-## Documentation Technique
+## Documentation AREA
+
+Cette documentation est générée avec [VitePress](https://vitepress.dev/).
+
+## 🚀 Lancer la Documentation en Local
+
+### Installation
+
+```bash
+cd docs
+npm install
+```
+
+### Développement
+
+```bash
+npm run docs:dev
+```
+
+La documentation sera accessible sur `http://localhost:5173`
+
+### Build Production
+
+```bash
+npm run docs:build
+```
+
+Les fichiers générés seront dans `.vitepress/dist/`
+
+### Preview Production
+
+```bash
+npm run docs:preview
+```
+
+## 📁 Structure
+
+```
+docs/
+├── .vitepress/
+│   ├── config.js          # Configuration VitePress
+│   └── dist/              # Build production (généré)
+├── index.md               # Page d'accueil
+├── introduction.md        # Introduction
+├── API_Documentation.md   # Doc API
+├── CI_CD_SETUP.md        # Guide CI/CD
+├── TESTS_SUMMARY.md      # Résumé tests
+└── ...                    # Autres fichiers de doc
+```
+
+## 📝 Ajouter une Nouvelle Page
+
+1. Créez un fichier `.md` dans le dossier `docs/`
+2. Ajoutez-le dans la sidebar de `.vitepress/config.js`
+3. La page sera automatiquement disponible
+
+## 🎨 Personnalisation
+
+Modifiez `.vitepress/config.js` pour :
+- Changer le titre et la description
+- Personnaliser la navigation
+- Ajouter des sections dans la sidebar
+- Configurer le thème
+
+## 📖 Ressources
+
+- [VitePress Documentation](https://vitepress.dev/)
+- [VitePress GitHub](https://github.com/vuejs/vitepress)
+- [Markdown Guide](https://vitepress.dev/guide/markdown)
+ Technique
 
 Voici les liens vers la documentation officielle des technologies utilisées dans ce projet :
 

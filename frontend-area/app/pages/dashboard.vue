@@ -98,7 +98,7 @@ const getServiceLogo = (name: string) => {
           </div>
           <div>
             <span class="text-xl font-black text-gray-900 tracking-tight">AREA</span>
-            <p class="text-[10px] text-gray-400 font-medium -mt-0.5">Automation Platform</p>
+            <p class="text-[10px] text-gray-600 font-medium -mt-0.5">Automation Platform</p>
           </div>
         </div>
       </div>
@@ -154,7 +154,7 @@ const getServiceLogo = (name: string) => {
     <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col h-full overflow-hidden relative">
       <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
-        <h1 class="text-lg font-bold text-gray-800">Dashboard</h1>
+        <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
         <NuxtLink to="/areas/create" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md shadow-blue-200 transition-all transform hover:-translate-y-0.5 text-sm">
           <PlusIcon class="w-5 h-5" />
           <span>Create Automation</span>
@@ -174,7 +174,7 @@ const getServiceLogo = (name: string) => {
                 </div>
               </div>
               <p class="text-3xl font-black text-gray-900">{{ stats.executionsToday }}</p>
-              <p class="text-xs text-gray-400 mt-1">Total executions</p>
+              <p class="text-xs text-gray-600 mt-1">Total executions</p>
             </div>
             <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-blue-200 hover:shadow-md transition-all">
               <div class="flex justify-between items-start mb-3">
@@ -184,7 +184,7 @@ const getServiceLogo = (name: string) => {
                 </div>
               </div>
               <p class="text-3xl font-black text-gray-900">{{ stats.activeAreas }}</p>
-              <p class="text-xs text-gray-400 mt-1">Running workflows</p>
+              <p class="text-xs text-gray-600 mt-1">Running workflows</p>
             </div>
             <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-purple-200 hover:shadow-md transition-all">
               <div class="flex justify-between items-start mb-3">
@@ -194,7 +194,7 @@ const getServiceLogo = (name: string) => {
                 </div>
               </div>
               <p class="text-3xl font-black text-gray-900">{{ stats.connectedServices }}</p>
-              <p class="text-xs text-gray-400 mt-1">Connected apps</p>
+              <p class="text-xs text-gray-600 mt-1">Connected apps</p>
             </div>
             <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-orange-200 hover:shadow-md transition-all">
               <div class="flex justify-between items-start mb-3">
@@ -214,7 +214,7 @@ const getServiceLogo = (name: string) => {
             <!-- Left: Workflows -->
             <div class="lg:col-span-2 space-y-4">
               <div class="flex justify-between items-end px-1">
-                <h3 class="font-bold text-lg text-gray-800">Your Workflows</h3>
+                <h2 class="font-bold text-lg text-gray-800">Your Workflows</h2>
               </div>
 
               <div class="bg-white rounded-xl p-1 shadow-sm border border-gray-200">
@@ -222,18 +222,18 @@ const getServiceLogo = (name: string) => {
                   <div class="flex items-center gap-4">
                     <!-- ICONE LOGO REEL -->
                     <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center p-2 group-hover:border-blue-200 group-hover:bg-white transition">
-                      <img :src="getServiceLogo(area.trigger)" alt="Service" class="w-6 h-6 object-contain" />
+                      <img :src="getServiceLogo(area.trigger)" :alt="area.trigger + ' service icon'" class="w-6 h-6 object-contain" />
                     </div>
                     
                     <div>
                       <h4 class="font-bold text-gray-900 text-sm group-hover:text-blue-700 transition">{{ area.name }}</h4>
                       <div class="flex items-center gap-2 mt-1 text-xs text-gray-500 font-medium">
                         <span class="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded">
-                           <img :src="getServiceLogo(area.trigger)" class="w-3 h-3" /> {{ area.trigger }}
+                           <img :src="getServiceLogo(area.trigger)" :alt="area.trigger" class="w-3 h-3" /> {{ area.trigger }}
                         </span>
                         <span class="text-gray-300">➜</span>
                         <span class="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded">
-                           <img :src="getServiceLogo(area.action)" class="w-3 h-3" /> {{ area.action }}
+                           <img :src="getServiceLogo(area.action)" :alt="area.action" class="w-3 h-3" /> {{ area.action }}
                         </span>
                       </div>
                     </div>
@@ -253,7 +253,7 @@ const getServiceLogo = (name: string) => {
             <!-- Right: Activity Feed -->
             <div class="space-y-4">
                <div class="flex justify-between items-end px-1">
-                <h3 class="font-bold text-lg text-gray-800">Live Feed</h3>
+                <h2 class="font-bold text-lg text-gray-800">Live Feed</h2>
               </div>
 
               <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 h-full max-h-[350px] overflow-y-auto custom-scrollbar">
@@ -266,7 +266,7 @@ const getServiceLogo = (name: string) => {
                     
                     <div class="flex justify-between items-start">
                       <div class="flex items-center gap-2">
-                        <img :src="`https://cdn.simpleicons.org/${log.icon}`" class="w-3 h-3 opacity-60" />
+                        <img :src="`https://cdn.simpleicons.org/${log.icon}`" :alt="log.icon + ' icon'" class="w-3 h-3 opacity-60" />
                         <p class="text-xs font-bold text-gray-700">{{ log.area }}</p>
                       </div>
                       <span class="text-[10px] text-gray-400 font-mono">{{ log.time }}</span>

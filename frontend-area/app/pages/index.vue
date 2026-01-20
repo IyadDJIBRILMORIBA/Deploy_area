@@ -3,7 +3,7 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-white via-indigo-50 to-blue-50">
+  <div class="bg-gradient-to-b from-white via-indigo-50 to-blue-50">
     
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur shadow-sm z-50">
@@ -56,7 +56,7 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
         </p>
 
         <!-- CTA -->
-        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <NuxtLink 
             to="/login"
             class="bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all hover:scale-105 shadow-lg"
@@ -66,6 +66,20 @@ import { BoltIcon, ArrowPathIcon, ShieldCheckIcon } from '@heroicons/vue/24/outl
 
           <a href="#features" class="border-2 border-gray-300 hover:border-indigo-500 text-gray-800 hover:text-indigo-600 font-bold py-4 px-8 rounded-lg text-lg transition-colors">
             En savoir plus
+          </a>
+        </div>
+
+        <!-- Bouton de téléchargement APK -->
+        <div class="flex justify-center mb-16">
+          <a 
+            href="/mobile/client.apk" 
+            download="area-client.apk"
+            class="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition-all hover:scale-105"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Télécharger l'app Android (.apk)</span>
           </a>
         </div>
 

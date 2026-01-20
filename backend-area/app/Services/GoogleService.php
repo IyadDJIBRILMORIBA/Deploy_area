@@ -7,6 +7,7 @@ use App\Helpers\OAuthHelper;
 use App\Models\User;
 use Google\Service\Gmail;
 use Google\Service\Gmail\Message;
+use Google\Service\Calendar;
 use Illuminate\Support\Facades\Log;
 
 class GoogleService implements ServiceInterface
@@ -25,11 +26,115 @@ class GoogleService implements ServiceInterface
         $triggerKey = strtolower(str_replace(' ', '_', $actionName));
         Log::info("[GoogleService] checkTrigger START - actionName: '{$actionName}' (converted: '{$triggerKey}') pour user {$userToken->id}");
         
-        // Accepter les trois noms possibles pour les triggers email
-        if (!in_array($triggerKey, ['new_email', 'new_email_received', 'new_gmail_received'])) {
-            return false;
+        // Trigger Gmail: Nouveau email reçu
+        if (in_array($triggerKey, ['new_email', 'new_email_received', 'new_gmail_received'])) {
+            return $this->checkNewEmail($params, $userToken);
         }
         
+        // Trigger Calendar: Nouvel événement créé
+        if (in_array($triggerKey, ['new_calendar_event', 'new_event'])) {
+            return $this->checkNewCalendarEvent($params, $userToken);
+        }
+        
+        return false;
+    }
+
+    /**
+     * Vérifie si un nouvel événement Google Calendar a été créé
+     * 
+     * @param array $params Paramètres du trigger (calendar_id, last_event_id)
+     * @param object $userToken L'objet User
+     * @return bool|array Retourne false si pas de nouvel événement, sinon les données de l'événement
+     */
+    private function checkNewCalendarEvent(array $params, $userToken)
+    {
+        try {
+            // 1. Récupérer le client Google valide
+            $client = OAuthHelper::getValidGoogleClient($userToken);
+            Log::info("[GoogleService] Client Google créé avec succès");
+            
+            $calendarService = new Calendar($client);
+            Log::info("[GoogleService] Calendar service initialisé");
+
+            // 2. Récupérer le calendar_id (par défaut 'primary')
+            $calendarId = $params['calendar_id'] ?? 'primary';
+            Log::info("[GoogleService] Calendar ID: {$calendarId}");
+
+            // 3. Récupérer les événements récents (créés dans les dernières 5 minutes)
+            $timeMin = (new \DateTime())->modify('-5 minutes')->format(\DateTime::RFC3339);
+            
+            $optParams = [
+                'maxResults' => 10,
+                'orderBy' => 'startTime',
+                'singleEvents' => true,
+                'timeMin' => $timeMin,
+            ];
+
+            Log::info("[GoogleService] Appel API Calendar listEvents...");
+            $events = $calendarService->events->listEvents($calendarId, $optParams);
+            Log::info("[GoogleService] Réponse API Calendar reçue");
+            
+            $eventsList = $events->getItems();
+
+            if (empty($eventsList)) {
+                Log::info("[GoogleService] Aucun nouvel événement Calendar pour user {$userToken->id}");
+                return false;
+            }
+
+            Log::info("[GoogleService] " . count($eventsList) . " événement(s) trouvé(s)");
+
+            // 4. Prendre l'événement le plus récent
+            $latestEvent = $eventsList[0];
+            $eventId = $latestEvent->getId();
+
+            // 5. Vérifier si c'est un nouvel événement
+            $lastEventId = $params['last_event_id'] ?? null;
+            
+            if ($lastEventId === $eventId) {
+                Log::info("[GoogleService] Événement déjà traité (last_event_id={$lastEventId})");
+                return false;
+            }
+
+            // 6. Extraire les informations de l'événement
+            $summary = $latestEvent->getSummary() ?? 'Sans titre';
+            $description = $latestEvent->getDescription() ?? '';
+            $location = $latestEvent->getLocation() ?? '';
+            
+            $start = $latestEvent->getStart();
+            $startDateTime = $start->getDateTime() ?? $start->getDate();
+            
+            $end = $latestEvent->getEnd();
+            $endDateTime = $end->getDateTime() ?? $end->getDate();
+
+            Log::info("[GoogleService] Nouvel événement Calendar détecté pour user {$userToken->id}: {$summary} (ID: {$eventId})");
+
+            // 7. Retourner les données du nouvel événement
+            return [
+                'event_id' => $eventId,
+                'summary' => $summary,
+                'description' => $description,
+                'location' => $location,
+                'start' => $startDateTime,
+                'end' => $endDateTime,
+                'link' => $latestEvent->getHtmlLink(),
+            ];
+
+        } catch (\Exception $e) {
+            Log::error("[GoogleService] Erreur checkNewCalendarEvent : " . $e->getMessage());
+            Log::error("[GoogleService] Stack trace: " . $e->getTraceAsString());
+            return false;
+        }
+    }
+
+    /**
+     * Vérifie si un nouveau email Gmail a été reçu
+     * 
+     * @param array $params Paramètres du trigger (last_email_id, from, subject)
+     * @param object $userToken L'objet User
+     * @return bool|array Retourne false si pas de nouvel email, sinon les données de l'email
+     */
+    private function checkNewEmail(array $params, $userToken)
+    {
         try {
             // 1. Récupérer le client Google valide (avec refresh auto)
             $client = OAuthHelper::getValidGoogleClient($userToken);

@@ -43,7 +43,7 @@ class GitHubService implements ServiceInterface
             $triggerKey = strtolower(str_replace(' ', '_', $actionName));
             
             // Trigger 1: Nouvelle issue créée
-            if ($triggerKey === 'new_issue') {
+            if (in_array($triggerKey, ['new_issue', 'new_issue_created', 'new_issues_created'])) {
                 return $this->checkNewIssue($accessToken, $params);
             }
             
@@ -82,6 +82,8 @@ class GitHubService implements ServiceInterface
             return false;
         }
         
+        Log::info("[GitHubService] Checking issues for repo: {$repo}");
+        
         $response = Http::withToken($accessToken)
             ->accept('application/vnd.github.v3+json')
             ->get(self::API_BASE . "/repos/{$repo}/issues", [
@@ -92,27 +94,36 @@ class GitHubService implements ServiceInterface
             ]);
             
         if (!$response->successful()) {
-            Log::error("[GitHubService] Erreur API issues: " . $response->status());
+            Log::error("[GitHubService] Erreur API issues: " . $response->status() . " - " . $response->body());
             return false;
         }
         
         $issues = $response->json();
         
+        Log::info("[GitHubService] Issues récupérées: " . count($issues));
+        
         if (empty($issues)) {
+            Log::info("[GitHubService] Aucune issue trouvée");
             return false;
         }
         
         $latestIssue = $issues[0];
         
+        Log::info("[GitHubService] Dernière issue: #{$latestIssue['number']} - {$latestIssue['title']}");
+        
         // Ignorer les pull requests (GitHub les retourne aussi dans /issues)
         if (isset($latestIssue['pull_request'])) {
+            Log::info("[GitHubService] Issue ignorée (c'est une PR)");
             return false;
         }
         
         $issueNumber = $latestIssue['number'];
         $lastIssueId = $params['last_issue_id'] ?? null;
         
+        Log::info("[GitHubService] Issue actuelle: #{$issueNumber}, dernière vue: " . ($lastIssueId ?? 'aucune'));
+        
         if ($lastIssueId && $issueNumber <= $lastIssueId) {
+            Log::info("[GitHubService] Issue déjà vue (#{$issueNumber} <= #{$lastIssueId})");
             return false;
         }
         
@@ -318,7 +329,8 @@ class GitHubService implements ServiceInterface
      */
     private function createIssue($accessToken, $params, $triggerData)
     {
-        $repo = $params['repo'] ?? null;
+        // Accepter 'repo' ou 'repository'
+        $repo = $params['repo'] ?? $params['repository'] ?? null;
         $title = $params['title'] ?? 'Nouvelle issue';
         $body = $params['body'] ?? '';
         
@@ -326,6 +338,8 @@ class GitHubService implements ServiceInterface
             Log::error("[GitHubService] repo manquant pour create_issue");
             return false;
         }
+        
+        Log::info("[GitHubService] Création issue dans {$repo}: {$title}");
         
         // Remplacer les variables dynamiques
         $title = $this->replaceVariables($title, $triggerData);

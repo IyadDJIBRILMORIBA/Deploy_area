@@ -1,100 +1,828 @@
-## **Planification du Projet**
+#  PLANNING DÉTAILLÉ - Projet AREA
 
-## **1\. Timeline du Projet**
+**Action-REaction Platform**  
+**Période:** Décembre 2025 - Janvier 2026  
+**Équipe:** 6 développeurs
 
-Le projet sera divisé en trois phases principales suivies des défenses.
+---
 
-#### **Phase 1 : Planification (Jusqu'à la 1ère défense)**
+##  Vue d'Ensemble
 
-* **Objectif :** Valider la stack technologique, mettre en place l'environnement de développement et prouver la communication.  
-* **Durée Estimée :** 01 semaine  
-* **Tâches Clés :**  
-  * **Recherche Technologique:** Exploration des alternatives et justification des choix (Laravel, Nuxt, Flutter).  
-  * **Mise en place de l'environnement de développement :**  
-    * Initialisation des projets Laravel, Nuxt.js, Flutter.  
-    * Création des Dockerfiles pour chaque service.  
-    * Configuration du `docker-compose.yml` (server 8080, client\_web 8081, common\_volume, `depends_on`).  
-  * **Développement du Proof of Concept (PoC) :**  
-    * **Backend (Laravel) :**  
-      * Mise en place d'une route REST simple (`/api/status` retournant `{"status": "ok"}`).  
-      * Implémentation de l'endpoint `/about.json` (au moins avec les informations statiques initiales).  
-    * **Client Web (Nuxt.js) :**  
-      * Interface affichant le résultat de l'appel à `/api/status` et `about.json`.  
-      * Configuration de la communication avec le backend via Docker Compose.  
-    * **Client Mobile (Flutter) :**  
-      * Application affichant le résultat de l'appel à `/api/status` et `about.json`.  
-      * Configuration de la communication avec le backend via Docker Compose.  
-  * **Rédaction du Document de Planification :** Ce document même (incluant, Planification, Sécurité).  
-* **Livrables pour la 1ère Soutenance :**  
-  * Document de planification complet.  
-  * Environnement de développement fonctionnel via `docker-compose up`.  
-  * Démonstration du PoC (backend, web, mobile communiquant).
+### Timeline Globale
 
-#### **Phase 2 : Minimum Viable Product (MVP) (Jusqu'à la 2ème Soutenance)**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    PROJET AREA - 7 SEMAINES                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  SEMAINE 1-2     SEMAINE 3-4     SEMAINE 5-6     SEMAINE 7      │
+│  (2-15 Déc)     (16-29 Déc)     (30 Déc-8 Jan)  (9-17 Jan)     │
+│                                                                  │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐    │
+│  │          │   │          │   │          │   │          │    │
+│  │ SPRINT 1 │──▶│ SPRINT 2 │──▶│ SPRINT 3 │──▶│  FINAL   │    │
+│  │          │   │          │   │          │   │          │    │
+│  │ Archi &  │   │   Core   │   │ Advanced │   │ Tests &  │    │
+│  │  Setup   │   │ Features │   │ Services │   │  Deploy  │    │
+│  │          │   │          │   │          │   │          │    │
+│  └──────────┘   └──────────┘   └──────────┘   └──────────┘    │
+│                                        ▼              ▼         │
+│                                   Deadline 1    Deadline 2      │
+│                                   11 Janvier    17 Janvier      │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-* **Objectif :** Implémenter le cœur de l'application : gestion complète des utilisateurs, une première intégration de service tiers avec des Actions/REActions fonctionnelles, et les interfaces clients associées.  
-* **Durée Estimée :** 03 semaines  
-* **Tâches Clés :**  
-  * **Développement Backend (Laravel) :**  
-    * Implémentation complète de l'API de gestion des utilisateurs (inscription, connexion par email/mot de passe).  
-    * Intégration d'**OAuth2 via Laravel Socialite** pour l'authentification tierce-partie (ex: Google).  
-    * API pour lier/délier des comptes de services tiers (ex: Google) aux utilisateurs.  
-    * Définition et stockage des Actions et REActions pour **UN service complet (ex: Google)**.  
-    * Implémentation d'une logique de "Hook" (polling ou webhook si disponible) pour au moins **1 Action et 1 REAction** fonctionnelles et inter-connectables.  
-  * **Développement Clients (Nuxt.js & Flutter) :**  
-    * Écrans de connexion/inscription pour l'authentification locale et via OAuth2 (Google).  
-    * Interface pour afficher le statut des services liés à l'utilisateur.  
-    * Interface pour lier/délier des services (ex: bouton "Connecter Google").  
-    * Interface utilisateur pour créer, modifier, et visualiser une AREA (en choisissant une Action et une REAction pour le service Google).  
-    * Assurer l'accessibilité de ces interfaces.  
-  * **Base de Données :** Implémentation du schéma initial (Users, OAuth Providers, Services, Actions, REActions, Areas).  
-* **Livrables pour la 2ème défense (MVP) :**  
-  * Application fonctionnelle permettant :  
-    * L'inscription et la connexion des utilisateurs (local et via Google).  
-    * La liaison d'un compte Google.  
-    * La création d'une AREA connectant une Action Google à une REAction Google.  
-    * La démonstration d'une Action Google qui déclenche une REAction Google via le système de hook.  
-  * Le `about.json` sera entièrement dynamique, reflétant les services et leurs Actions/REActions implémentés.  
-  * Mise à jour du planning avec l'analyse des écarts et des modifications.
+### Deadlines Critiques
 
-#### **Phase 3 : Finalisation et Robustesse (Jusqu'à la défense Finale)**
+| Date | Événement | Livrables |
+|------|-----------|-----------|
+| **11 Janvier 2026** | Deadline 1 | Toutes fonctionnalités core prêtes |
+| **17 Janvier 2026** | Deadline 2 | MERGE FINAL - Projet complet |
 
-* **Objectif :** Étendre les fonctionnalités, améliorer l'expérience utilisateur, garantir la qualité et la robustesse du produit final.  
-* **Durée Estimée :** 06 semaines  
-* **Tâches Clés :**  
-  * **Extension des Services :** Intégration de plusieurs services tiers supplémentaires (ex: Outlook 365, OneDrive/Dropbox, GitHub) avec leurs Actions et REActions variées.  
-  * **Amélioration de l'UI/UX :** Refinement des interfaces web et mobile, amélioration de la fluidité, du design et de l'ergonomie.  
-  * **Tests Automatisés :**  
-    * Implémentation de tests unitaires pour le backend et les clients.  
-    * Mise en place de tests d'intégration pour les flux critiques (ex: création d'AREA, déclenchement de hook).  
-  * **Robustesse et Gestion des Erreurs :** Amélioration de la gestion des erreurs, logging, mécanismes de retry pour les intégrations tierces.  
-  * **Optimisation des Performances :** Identification et correction des goulots d'étranglement.  
-  * **Finalisation de la Documentation :** Rédaction complète du `README.md` et `HOWTOCONTRIBUTE.md`, incluant les diagrammes d'architecture, d'API et les instructions de déploiement.  
-  * **Accessibilité :** Audit et améliorations pour atteindre un niveau d'accessibilité élevé (référentiel WCAG).  
-* **Livrables pour la Soutenance Finale :**  
-  * Application complète, fonctionnelle et robuste.  
-  * Documentation exhaustive et claire.  
-  * Tests automatisés significatifs.  
-  * Analyse des succès et difficultés rencontrées lors du projet.
+---
 
-### **2\. Considérations Sécurité**
+##  SPRINT 1: Architecture & Setup (2-15 Décembre 2025)
 
-La sécurité est une préoccupation majeure pour une plateforme d'automatisation manipulant des données sensibles et interagissant avec des services tiers.
+**Objectif:** Poser les fondations solides du projet
 
-* **Authentification Utilisateur :**  
-  * **Locale :** Utilisation des mécanismes de hachage de mot de passe sécurisés de Laravel (Bcrypt/Argon2). Les sessions utilisateurs seront gérées par des jetons (JWT via Laravel Sanctum) pour les communications API avec les clients web et mobile.  
-  * **OAuth2 pour Tiers :** Utilisation de **Laravel Socialite** pour la gestion simplifiée des flux OAuth2 avec des fournisseurs externes (Google, Facebook, etc.). Les tokens d'accès et de rafraîchissement obtenus des services tiers seront stockés de manière sécurisée et chiffrée dans notre base de données.  
-  * **HTTPS (SSL/TLS) :** Toutes les communications client-serveur et serveur-tiers seront systématiquement chiffrées via HTTPS pour prévenir l'interception des données.
+### Semaine 1: 2-8 Décembre 2025
 
-* **Autorisation :**  
-  * Implémentation de middlewares Laravel pour contrôler l'accès aux ressources et API en fonction des rôles ou permissions de l'utilisateur.  
-  * Vérification des scopes OAuth2 obtenus pour chaque service tiers avant d'effectuer des actions pour le compte de l'utilisateur.  
-* **Protection des Données :**  
-  * **Validation des entrées :** Validation rigoureuse de toutes les données reçues des clients pour prévenir les injections (SQL, XSS, etc.).  
-  * **Encodage des sorties :** Toutes les données affichées seront correctement encodées pour éviter les vulnérabilités XSS.  
-  * **Paramétrisation des requêtes :** Utilisation d'ORM (Eloquent) pour interagir avec la base de données afin de prévenir les injections SQL.  
-  * **Configuration Sécurisée :** Utilisation de variables d'environnement pour stocker les clés API, identifiants de client OAuth, secrets, etc.  
-* **Sécurité API :**  
-  * **Rate Limiting :** Mise en place de mécanismes pour limiter le nombre de requêtes aux API afin de prévenir les attaques par déni de service et l'abus.  
-  * **CORS :** Configuration stricte des Cross-Origin Resource Sharing pour n'autoriser les requêtes que depuis nos clients autorisés.
+#### Lundi 2 Décembre
+**Backend (Retys)**
+- Setup repository GitHub
+- Configuration Docker (backend)
+- Setup Laravel initial
 
+**Frontend (Florian)**
+- Setup repository frontend
+- Configuration Nuxt.js
+- Configuration Tailwind CSS
+
+**Mobile (Iyad)**
+- Setup Flutter project
+- Configuration Android
+- Architecture MVVM
+
+#### Mardi 3 Décembre
+**Backend (Retys + Méryl)**
+- Configuration PostgreSQL
+- Migrations initiales (users, services)
+- Setup OAuth2
+
+**Backend (Asaph)**
+- Configuration environnement
+- Migrations (areas, area_logs)
+
+**Frontend (Florian + Prince)**
+- Architecture composants
+- Routing initial
+
+**Mobile (Iyad)**
+- Routing Flutter
+- Écrans de base (structure)
+
+#### Mercredi 4 Décembre
+**Backend (Retys)**
+- Création ServiceInterface
+- Architecture pattern Service
+
+**Backend (Méryl + Asaph)**
+- Setup authentication Sanctum
+
+**Frontend (Florian)**
+- Layout principal
+- Composants de base
+
+**Frontend (Prince)**
+- Page d'accueil
+
+**Mobile (Iyad)**
+- Écrans auth (Login/Register)
+
+#### Jeudi 5 Décembre
+**Backend (Retys)**
+- API Auth (/api/auth/*)
+
+**Backend (Méryl)**
+- API Services (GET /api/services)
+
+**Backend (Asaph)**
+- Seeders initiaux
+
+**Frontend (Florian)**
+- Pages Login/Register
+
+**Frontend (Prince)**
+- Navbar et Footer
+
+**Mobile (Iyad)**
+- HTTP client configuration
+
+#### Vendredi 6 Décembre
+**Backend Team**
+- Review code collectif
+- Tests unitaires auth
+- Documentation API (début)
+
+**Frontend Team**
+- Intégration API auth
+- Store Pinia (état global)
+
+**Mobile (Iyad)**
+- Service authentification
+- Gestion des tokens
+
+### Semaine 2: 9-15 Décembre 2025
+
+#### Lundi 9 Décembre
+**Backend (Retys)**
+- API Areas (POST /api/areas)
+
+**Backend (Méryl)**
+- API Areas (GET /api/areas)
+
+**Backend (Asaph)**
+- Relations BD (areas ↔ users)
+
+**Frontend (Florian)**
+- Dashboard (structure)
+
+**Frontend (Prince)**
+- Composants UI (Cards)
+
+**Mobile (Iyad)**
+- Home screen
+
+#### Mardi 10 Décembre
+**Backend Team**
+- API Areas (PUT/DELETE /api/areas/:id)
+
+**Frontend (Florian)**
+- Dashboard (liste AREA)
+
+**Frontend (Prince)**
+- Form components
+
+**Mobile (Iyad)**
+- Liste des AREA (UI)
+
+#### Mercredi 11 Décembre
+**Backend (Retys)**
+- Début GoogleService
+
+**Backend (Méryl + Asaph)**
+- Tests API Areas
+
+**Frontend Team**
+- Intégration API Areas
+
+**Mobile (Iyad)**
+- Détails AREA screen
+
+#### Jeudi 12 Décembre
+**Backend (Retys)**
+- GoogleService (suite)
+
+**Backend (Méryl)**
+- Début DiscordService
+
+**Backend (Asaph)**
+- Migration area_logs
+
+**Frontend (Florian)**
+- Navigation guards
+
+**Frontend (Prince)**
+- Error handling
+
+**Mobile (Iyad)**
+- Error handling mobile
+
+#### Vendredi 13 Décembre
+**ALL TEAM**
+- Review Sprint 1
+- Tests d'intégration
+- Documentation update
+
+**Week-end 14-15 Décembre**
+- Temps libre / Ajustements individuels
+
+---
+
+##  SPRINT 2: Core Features
+
+**Objectif:** Implémenter les fonctionnalités essentielles
+
+### Semaine 3
+
+#### Lundi 16 Décembre
+**Backend (Retys)**
+- GoogleService (finalisation OAuth2)
+
+**Backend (Méryl)**
+- DiscordService (OAuth2)
+
+**Backend (Asaph)**
+- WeatherService (début)
+
+**Frontend (Florian)**
+- Page création AREA (structure)
+
+**Frontend (Prince)**
+- ServiceCard component
+
+**Mobile (Iyad)**
+- Écran création AREA
+
+#### Mardi 17 Décembre
+**Backend (Retys)**
+- GoogleService (actions/réactions)
+
+**Backend (Méryl)**
+- iscordService (actions)
+
+**Backend (Asaph)**
+- WeatherService (API OpenWeather)
+
+**Frontend (Florian)**
+- Sélection de service
+
+**Frontend (Prince)**
+- Page profil (début)
+
+**Mobile (Iyad)**
+- Liste des services
+
+#### Mercredi 18 Décembre
+**Backend (Retys)**
+- GoogleService (tests)
+
+**Backend (Méryl)**
+- DiscordService (réactions)
+
+**Backend (Asaph)**
+- WeatherService (actions)
+
+**Frontend (Florian)**
+- Configuration action/réaction
+
+**Frontend (Prince)**
+- Page profil (suite)
+
+**Mobile (Iyad)**
+- Configuration OAuth mobile
+
+#### Jeudi 19 Décembre
+**Backend (Retys)**
+- TimerService (début)
+
+**Backend (Méryl)**
+- DiscordService (tests)
+
+**Backend (Asaph)**
+- WeatherService (cache)
+
+**Frontend (Florian)**
+- Dashboard (statistiques)
+
+**Frontend (Prince)**
+- Page profil (services connectés)
+
+**Mobile (Iyad)**
+- WebView OAuth
+
+#### Vendredi 20 Décembre
+**Backend (Retys)**
+- TimerService (interval, specific_time)
+
+**Backend (Méryl)**
+- SlackService (début)
+
+**Backend (Asaph)**
+- WeatherService (finalisation)
+
+**Frontend (Florian)**
+- Dashboard (graphiques)
+
+**Frontend (Prince)**
+- Page activités (début)
+
+**Mobile (Iyad)**
+- Dashboard mobile
+
+**Week-end 21-22 Décembre**
+- Temps libre / Ajustements
+
+### Semaine 4
+
+#### Lundi 23 Décembre
+**Backend (Retys)**
+- TimerService (specific_date, tests)
+
+**Backend (Méryl)**
+- SlackService (OAuth2)
+
+**Backend (Asaph)**
+- Migration area_logs (optimisation)
+
+**Frontend (Florian)**
+- Page OAuth callback
+
+**Frontend (Prince)**
+- Page activités (timeline)
+
+**Mobile (Iyad)**
+- Dashboard (statistiques)
+
+#### Mardi 24 Décembre
+**Backend (Retys)**
+- ExecuteAreas command (début)
+
+**Backend (Méryl)**
+- SlackService (actions)
+
+**Backend (Asaph)**
+- Index BD optimisation
+
+**Frontend Team**
+- Intégration OAuth
+
+**Mobile (Iyad)**
+- Activités récentes
+
+**Pause Noël** 
+
+#### Mercredi 25 Décembre
+**🎄 NOËL - Repos**
+
+#### Jeudi 26 Décembre
+**Backend (Retys)**
+- ExecuteAreas (boucle vérification)
+
+**Backend (Méryl)**
+- SlackService (réactions)
+
+**Backend (Asaph)**
+- Tests services existants
+
+**Frontend (Florian)**
+- Gestion des erreurs OAuth
+
+**Frontend (Prince)**
+- Page activités (filtres)
+
+**Mobile (Iyad)**
+- Navigation améliorée
+
+#### Vendredi 27 Décembre
+**Backend (Retys)**
+- ExecuteAreas (logging)
+
+**Backend (Méryl)**
+- AboutController (mise à jour)
+
+**Backend (Asaph)**
+- Tests d'intégration
+
+**Frontend (Florian)**
+- Optimisation dashboard
+
+**Frontend (Prince)**
+- Responsive design
+
+**Mobile (Iyad)**
+- Configuration serveur
+
+#### Samedi 28 Décembre
+**ALL TEAM**
+- Review Sprint 2
+- Tests d'intégration
+
+#### Dimanche 29 Décembre
+**Préparation Sprint 3**
+- Planning individuel
+- Ajustements
+
+---
+
+##  SPRINT 3: Advanced Services
+
+**Objectif:** Compléter tous les services et fonctionnalités avancées
+
+### Semaine 5
+
+#### Lundi 30 Décembre
+**Backend (Retys)**
+- GitHubService (OAuth2)
+
+**Backend (Méryl)**
+- AboutController (tous les services)
+
+**Backend (Asaph)**
+- TrelloService (début)
+
+**Frontend (Florian + Prince)**
+- UI/UX améliorations
+
+**Mobile (Iyad)**
+- Notifications (structure)
+
+#### Mardi 31 Décembre
+**Backend (Retys)**
+- GitHubService (actions)
+
+**Backend (Méryl)**
+- Tests AboutController
+
+**Backend (Asaph)**
+- TrelloService (OAuth)
+
+**Frontend Team**
+- Dark mode
+
+**Mobile (Iyad)**
+- Local storage
+
+**Préparation Nouvel An** 
+
+**NOUVEL AN - Repos**
+
+#### Jeudi 2 Janvier
+**Backend (Retys)**
+- GitHubService (réactions, tests)
+
+**Backend (Méryl)**
+- Review services Discord/Slack
+
+**Backend (Asaph)**
+- TrelloService (actions)
+
+**Frontend (Florian)**
+- Pages services
+
+**Frontend (Prince)**
+- Documentation services
+
+**Mobile (Iyad)**
+- Sync offline
+
+#### Vendredi 3 Janvier
+**Backend (Retys)**
+- TwitchService (début)
+
+**Backend (Méryl)**
+- Tests finaux Discord/Slack
+
+**Backend (Asaph)**
+- TrelloService (réactions)
+
+**Frontend Team**
+- Animations & transitions
+
+**Mobile (Iyad)**
+- Optimisations performance
+
+#### Samedi 4 Janvier
+**Backend (Retys)**
+- TwitchService (OAuth2, actions)
+
+**Backend (Asaph)**
+- TrelloService (webhooks)
+
+**Frontend Team**
+- Tests E2E
+
+**Mobile (Iyad)**
+- APK build (test)
+
+#### Dimanche 5 Janvier
+**Backend Team**
+- Review collectif services
+
+**Frontend + Mobile**
+- Ajustements individuels
+
+### Semaine 6
+
+#### Lundi 6 Janvier
+**Backend (Retys)**
+- TwitchService (réactions, tests)
+
+**Backend (Méryl)**
+- Documentation API complète
+
+**Backend (Asaph)**
+- TrelloService (tests)
+
+**Frontend (Florian)**
+- Exemples d'AREA
+
+**Frontend (Prince)**
+- Guide d'utilisation
+
+**Mobile (Iyad)**
+- Configuration APK production
+
+#### Mardi 7 Janvier
+**Backend (Retys)**
+- DashboardController (finalisation)
+
+**Backend (Méryl)**
+- Enregistrement services dans ExecuteAreas
+
+**Backend (Asaph)**
+- Tests complets (coverage)
+
+**Frontend Team**
+- Cross-browser testing
+
+**Mobile (Iyad)**
+- Battery optimization
+
+#### Mercredi 8 Janvier
+**Backend (Retys)**
+- ActivityController (finalisation)
+
+**Backend (Méryl)**
+- Tests tous les services
+
+**Backend (Asaph)**
+- Tests d'intégration finaux
+
+**Frontend (Florian + Prince)**
+- Optimisations finales
+- Préparation merge
+
+**Mobile (Iyad)**
+- Derniers tests
+- Préparation merge
+
+---
+
+##  PHASE FINALE: Tests & Déploiement
+
+### Semaine 7
+
+#### Jeudi 9 Janvier
+**ALL TEAM - Focus: Code Review**
+- Review backend (tous)
+- Review frontend (tous)
+- Review mobile (tous)
+
+#### Vendredi 10 Janvier
+**ALL TEAM - Focus: Corrections**
+- Corrections bugs backend
+- Corrections bugs frontend
+- Corrections bugs mobile
+
+####  Samedi 11 Janvier - DEADLINE 1
+
+**Objectifs à atteindre:**
+- ✅ Tous les services backend implémentés (8/8)
+- ✅ API complète et documentée
+- ✅ Tests >70% coverage
+- ✅ `/api/about.json` complet
+- ✅ Frontend toutes pages fonctionnelles
+- ✅ Mobile toutes fonctionnalités implémentées
+
+**Timeline du jour:**
+- Vérifications finales backend (Retys, Méryl, Asaph)
+- Vérifications finales frontend (Florian, Prince)
+- Vérifications finales mobile (Iyad)
+- Checkpoint meeting (tous)
+
+#### Dimanche 12 Janvier
+**ALL TEAM - Tests d'Intégration**
+- Tests Backend ↔ Frontend
+- Tests Backend ↔ Mobile
+- Corrections intégration
+
+#### Lundi 13 Janvier
+**ALL TEAM - Tests d'Intégration (suite)**
+- Tests E2E complets
+- Corrections bugs intégration
+- Tests de charge
+
+#### Mardi 14 Janvier
+**ALL TEAM - Documentation**
+- README.md (Retys + Florian)
+- API_DOCUMENTATION.md (Méryl)
+- TESTING_GUIDE.md (Asaph)
+- HOWTOCONTRIBUTE.md (Florian + Prince)
+- Guide mobile (Iyad)
+- Vidéo de démo (tous)
+
+#### Mercredi 15 Janvier
+**ALL TEAM - Optimisations**
+- Optimisation backend (Retys, Méryl, Asaph)
+- Optimisation frontend (Florian, Prince)
+- Optimisation mobile (Iyad)
+
+#### Jeudi 16 Janvier
+**ALL TEAM - Pre-Merge**
+- Vérification Docker compose
+- Tests de déploiement
+- Génération APK final (client.apk)
+- Vérification finale
+
+#### 🚀 Vendredi 17 Janvier - DEADLINE 2
+
+**JOUR DU MERGE FINAL**
+
+**Timeline du jour:**
+
+**- Préparation Finale**
+- Retys: Vérification backend
+- Florian: Vérification frontend
+- Iyad: Vérification APK
+- Tous: Tests locaux
+
+**- Merge Backend**
+- Retys: Merge branch backend → main
+- Méryl: Vérification services Discord/Slack
+- Asaph: Vérification services Weather/Trello
+- Tests automatiques CI/CD
+
+**- Tests**
+- Tests d'intégration backend
+
+**- Merge Frontend**
+- Florian: Merge branch frontend → main
+- Prince: Vérification intégration
+- Tests E2E
+
+**- Merge Mobile**
+- Iyad: Merge branch mobile → main
+- Vérification APK
+- Tests sur devices
+
+**- Docker Compose Final**
+- Retys: docker-compose up -d
+- Tous: Tests du stack complet
+- Vérifications finales
+
+**- Tag & Release**
+- Tag v1.0.0
+- Release notes
+- Upload client.apk
+- Documentation finale
+
+**- Vérification Finale**
+- ✅ Tous les tests passent
+- ✅ Docker compose fonctionne
+- ✅ APK disponible
+- ✅ Documentation complète
+- ✅ Repository clean
+
+**- PROJET LIVRÉ!**
+
+---
+
+##  Suivi des Sprints
+
+### Sprint 1: Architecture & Setup
+
+**Objectifs:**
+- Setup infrastructure (Docker, Laravel, Nuxt, Flutter)
+- Architecture des services (ServiceInterface)
+- Base de données et migrations
+- API Auth fonctionnelle
+- Pages de base frontend/mobile
+
+**Livrables:**
+- Backend: API Auth, Migrations, ServiceInterface
+- Frontend: Pages Login/Register, Dashboard (structure)
+- Mobile: Écrans Auth, Home
+- Docker compose fonctionnel
+
+### Sprint 2: Core Features
+
+**Objectifs:**
+- Services essentiels (Google, Timer, Discord, Slack, Weather)
+- Moteur AREA (ExecuteAreas)
+- API complète (/api/areas, /api/about.json)
+- Dashboard fonctionnel
+- Intégration OAuth
+
+**Livrables:**
+- Backend: 5 services, ExecuteAreas, AboutController
+- Frontend: Dashboard, Création AREA, OAuth
+- Mobile: AREA management, OAuth
+
+### Sprint 3: Advanced Services
+
+**Objectifs:**
+- Services avancés (GitHub, Spotify, Trello)
+- UI/UX améliorations
+- Tests complets
+- APK production
+
+**Livrables:**
+- Backend: 8 services total, Tests >70%
+- Frontend: Dark mode, Animations, E2E tests
+- Mobile: APK, Notifications, Optimisations
+
+### Phase Finale: Tests & Deploy
+
+**Objectifs:**
+- Tests d'intégration complets
+- Documentation complète
+- Optimisations finales
+- Merge final
+
+**Livrables:**
+- Projet complet mergé
+- client.apk
+- Documentation complète
+
+---
+
+### Répartition du Temps
+
+```
+Backend:        40% (Retys, Méryl, Asaph)
+Frontend Web:   30% (Florian, Prince)
+Mobile:         20% (Iyad)
+Documentation:  6%  (Tous)
+Tests:          4%  (Tous)
+```
+
+---
+
+##  Réunions & Communication
+
+### Stand-ups Quotidiens
+**Format:**
+1. Qu'est-ce que j'ai fait hier?
+2. Qu'est-ce que je fais aujourd'hui?
+3. Y a-t-il des blocages?
+
+### Sprint Reviews
+- **Sprint 1:** Vendredi 12 Décembre, 15:00
+- **Sprint 2:** Vendredi 26 Décembre, 15:00
+- **Sprint 3:** Mercredi 9 Janvier, 15:00
+
+### Checkpoints Critiques
+- **Checkpoint 1:** Samedi 11 Janvier, 16:00 (Deadline 1)
+- **Checkpoint 2:** Vendredi 17 Janvier, 16:00 (Deadline 2 - FINAL)
+
+---
+
+##  Gestion des Risques
+
+### Risques Identifiés
+
+| Risque | Impact | Probabilité | Mitigation |
+|--------|--------|-------------|------------|
+| Retard développement | Haut | Moyen | Sprints courts, reviews fréquentes |
+| Bugs intégration | Haut | Moyen | Tests d'intégration dès Sprint 2 |
+| OAuth complexe | Moyen | Faible | Documentation, entraide équipe |
+| Deadline serrée | Haut | Moyen | Planning détaillé, priorisation |
+
+
+**Si retard critique détecté:**
+1. Réunion d'urgence équipe
+2. Priorisation des fonctionnalités core
+3. Redistribution des tâches
+
+---
+
+##  Critères de Succès
+
+### Technique
+- ✅ Tous les tests passent
+- ✅ Coverage >70%
+- ✅ Pas de credentials dans le code
+- ✅ Docker compose fonctionne
+- ✅ APK génère sans erreur
+
+### Fonctionnel
+- ✅ 8+ services intégrés
+- ✅ AREA créées et déclenchées
+- ✅ Interface web responsive
+- ✅ App mobile fonctionnelle
+- ✅ OAuth fonctionnel
+
+### Qualité
+- ✅ Code reviewé
+- ✅ Documentation complète
+- ✅ Architecture propre
+- ✅ UX/UI soignée
+
+---
+
+##  Contacts & Support
+
+### Leads
+- **Backend:** Retys
+- **Frontend Web:** Florian
+- **Mobile:** Iyad
+
+### Canaux de Communication
+- **Discord:** Chat quotidien, Whatsapp
+- **GitHub:** Issues, PR, Reviews
+- **Meetings:** Google Meet
+
+---
+
+**Status:**  PROJET COMPLÉTÉ

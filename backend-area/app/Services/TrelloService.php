@@ -377,6 +377,7 @@ class TrelloService implements ServiceInterface
         $description = $this->replaceVariables($description, $triggerData);
 
         Log::info("[TrelloService] Création carte : '{$name}' dans liste {$listId}");
+        Log::info("[TrelloService] API Key: " . substr($this->apiKey, 0, 8) . "... | Token: " . substr($this->apiToken, 0, 10) . "...");
 
         $data = [
             'key' => $this->apiKey,

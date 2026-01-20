@@ -17,7 +17,18 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8000',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE_URL
     },
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      title: 'AREA - Automation Platform',
+      meta: [
+        { name: 'description', content: 'Automation platform linking services together.' }
+      ]
+    }
+  }
 })

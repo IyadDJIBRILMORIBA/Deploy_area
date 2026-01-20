@@ -11,22 +11,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ActivityController;
 
 // Routes Publiques
-Route::get('/health', function () {
-    try {
-        \DB::connection()->getPdo();
-        $dbStatus = 'connected';
-    } catch (\Exception $e) {
-        $dbStatus = 'disconnected';
-    }
-    
-    return response()->json([
-        'status' => 'healthy',
-        'service' => 'AREA Backend',
-        'database' => $dbStatus,
-        'timestamp' => now()->toIso8601String(),
-    ]);
-});
-
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/auth/google', [AuthController::class, 'googleAuth']); // ✅ Changé de googleMobileLogin à googleAuth

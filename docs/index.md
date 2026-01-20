@@ -5,28 +5,107 @@ hero:
   name: "AREA"
   text: "Action-REAction Platform"
   tagline: Automatisez vos tâches en interconnectant vos services préférés
+  image:
+    src: /hero-image.svg
+    alt: AREA Platform
   actions:
     - theme: brand
-      text: Guide de Configuration
-      link: /Guide_Configuration
+      text: Démarrer
+      link: /introduction
     - theme: alt
       text: Documentation API
       link: /API_Documentation
+    - theme: alt
+      text: Guide Docker
+      link: /Guide Docker
 
 features:
   - icon: 🔌
     title: Services Intégrés
-    details: Gmail, Timer, OpenWeatherMap et bien plus à venir
+    details: Gmail, GitHub, Slack, Discord, Weather, Trello, Twitch et plus encore
   - icon: ⚡
-    title: Automatisation
-    details: Créez des workflows conditionnels puissants
+    title: Automatisation Puissante
+    details: Créez des workflows conditionnels avec triggers et actions personnalisés
   - icon: 🐳
-    title: Docker
-    details: Déploiement simple avec Docker Compose
+    title: Docker & CI/CD
+    details: Déploiement avec Docker Compose + Tests automatisés via GitHub Actions
   - icon: 🔐
     title: OAuth Sécurisé
-    details: Connexion sécurisée via Google OAuth 2.0
+    details: Authentification via Google, GitHub et autres providers OAuth 2.0
+  - icon: 🧪
+    title: Tests Complets
+    details: 31+ tests unitaires et fonctionnels avec PHPUnit + Couverture de code
+  - icon: 📱
+    title: Multi-plateforme
+    details: Web (Nuxt), Mobile (Flutter) et API REST (Laravel)
+  - icon: 🔄
+    title: Temps Réel
+    details: Polling intelligent et webhooks pour des réactions instantanées
+  - icon: 📊
+    title: Monitoring
+    details: Logs détaillés, métriques et historique d'exécution
 ---
+
+## 🚀 Démarrage Rapide
+
+```bash
+# Cloner le projet
+git clone https://github.com/VOTRE-USERNAME/G-DEV-500-COT-5-2-area-8.git
+cd G-DEV-500-COT-5-2-area-8
+
+# Lancer avec Docker
+docker-compose up -d
+
+# Accéder à l'application
+# Web: http://localhost:8081
+# API: http://localhost:8080
+```
+
+## 📚 Documentation
+
+<div class="tip custom-block" style="padding-top: 8px">
+
+Explorez la documentation complète pour apprendre à :
+- Configurer et déployer AREA
+- Créer vos propres workflows d'automatisation
+- Intégrer de nouveaux services
+- Contribuer au projet
+
+</div>
+
+## 🏗️ Architecture
+
+AREA est composé de 3 micro-services :
+
+| Service | Technologie | Port | Description |
+|---------|-------------|------|-------------|
+| **Backend** | Laravel 11 (PHP 8.2+) | 8080 | API REST, logique métier, polling & webhooks |
+| **Frontend Web** | Nuxt 3 (Vue.js) | 8081 | Interface utilisateur responsive |
+| **Mobile** | Flutter | N/A | Application Android native |
+
+## 🎯 Services Supportés
+
+- **Timer** - Déclencheurs temporels (interval, heure fixe)
+- **Google** - Gmail, Calendar
+- **GitHub** - Issues, Pull Requests, Commits
+- **Slack** - Messages, Channels, Reactions
+- **Discord** - Messages, Webhooks
+- **Weather** - OpenWeatherMap (conditions, température)
+- **Trello** - Cartes, Listes, Boards
+- **Twitch** - Stream online, Followers
+
+## 💡 Exemple de Workflow
+
+```yaml
+Trigger: "Température à Paris < 15°C"
+Action: "Envoyer un message Slack"
+
+Trigger: "Nouvelle issue GitHub"
+Action: "Créer une carte Trello"
+
+Trigger: "Tous les lundis à 9h"
+Action: "Envoyer un email récapitulatif"
+```
 
 # 📚 Documentation AREA
 

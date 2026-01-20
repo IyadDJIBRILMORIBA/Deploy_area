@@ -1,0 +1,22 @@
+{
+  "name": "area-docs",
+  "version": "1.0.0",
+  "description": "Documentation AREA avec VitePress",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.0"
+  },
+  "keywords": [
+    "documentation",
+    "vitepress",
+    "area",
+    "automation"
+  ],
+  "author": "AREA Team",
+  "license": "MIT"
+}
