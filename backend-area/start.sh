@@ -5,6 +5,12 @@
 
 echo "🚀 Starting AREA Backend..."
 
+# Régénérer la clé si APP_KEY est vide
+if [ -z "$APP_KEY" ]; then
+  echo "🔑 Generating APP_KEY..."
+  php artisan key:generate --force
+fi
+
 # Vider les caches (IMPORTANT pour utiliser les vraies variables d'env)
 echo "📦 Clearing all caches..."
 php artisan config:clear
@@ -25,4 +31,6 @@ php artisan view:cache
 # Démarrer le serveur sur le port fourni par Render
 PORT=${PORT:-8000}
 echo "🌐 Starting server on port $PORT..."
+echo "📊 Using DB_HOST: $DB_HOST"
+echo "📊 Using DB_DATABASE: $DB_DATABASE"
 php artisan serve --host=0.0.0.0 --port=$PORT
